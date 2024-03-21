@@ -26,6 +26,8 @@ public class GameRoot : MonoBehaviour
     private PlayerData player;
     public PlayerData PlayerData { get { return player; } }
 
+    public Transform CharShowCam { get; private set; }
+
     private void Start()
     {
         Instance = this;
@@ -33,6 +35,14 @@ public class GameRoot : MonoBehaviour
         Debug.Log("Game Start....");
         ClearUIRoot();
         Init();
+        if (CharShowCam == null)
+        {
+            CharShowCam = GameObject.FindGameObjectWithTag("CharShowCam").transform;
+        }
+        if (CharShowCam != null)
+        {
+            CharShowCam.gameObject.SetActive(false);
+        }
     }
 
     private void ClearUIRoot()
@@ -87,6 +97,12 @@ public class GameRoot : MonoBehaviour
             loginSys.EnterLoding();
         }
 
+        CharacterCreatController creatController = GetComponent<CharacterCreatController>();
+        if (creatController != null)
+        {
+            creatController.Init();
+        }
+
         MainCitySystem mainCitySys = GetComponent<MainCitySystem>();
         if (mainCitySys != null)
         {
@@ -103,6 +119,8 @@ public class GameRoot : MonoBehaviour
     {
         player.Name = name;
     }
+
+
 
     public static void AddTips(string str)
     {

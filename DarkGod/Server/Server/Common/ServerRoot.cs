@@ -28,6 +28,8 @@ public class ServerRoot
 
 		//登陆系统
 		LoginSys.Instance.Init();
+		CfgSvc.Instance.Init();
+		GuideSys.Instance.Init();
     }
 
 	int nSession = 0;

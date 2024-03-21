@@ -12,4 +12,7 @@ public class PathDefine
 	public const string RDNameCfg = "ResCfgs/rdname";
     #endregion
     public const string AssissnCityPlayerPrefab = "PrefabPlayer/AssassinCity";
+    public const string AssissnCityNPCPrefab = "PrefabNPC/NPC_";
+
+    public const string PlayerAssassinImage = "ResImage/assassin";
 }

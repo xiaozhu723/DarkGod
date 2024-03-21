@@ -8,6 +8,7 @@
 using PENet;
 using PEProtocol;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 public class GameMsgPack
 {
@@ -75,6 +76,10 @@ public class NetSvc
             case EMCMD.RequestRename: //登陆相关
                 LoginSys.Instance.ResponseRename(pack);
                 break;
+            case EMCMD.RequestGuide: //引导
+                GuideSys.Instance.RequestGuide(pack);
+                break;
+                
         }
     }
 }

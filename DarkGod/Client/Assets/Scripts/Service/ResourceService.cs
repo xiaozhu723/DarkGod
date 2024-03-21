@@ -19,12 +19,14 @@ public class ResourceService : MonoBehaviour
     public static ResourceService Instance { get; private set; }
 
     Dictionary<string, AudioClip> AudioClipCacheDic = new Dictionary<string, AudioClip>();
+    Dictionary<string, Sprite> SpriteCacheDic = new Dictionary<string, Sprite>();
 
     public void Init()
     {
         Instance = this;
         InitRDNameCfg2();
         InitMapCfg();
+        InitAutoGuideCfg();
         Debug.Log("Init ResourceService....");
     }
 
@@ -93,6 +95,26 @@ public class ResourceService : MonoBehaviour
         }
 
         return clip;
+    }
+
+    //加载图片
+    public Sprite LoadSprite(string path, bool cache =false)
+    {
+        Sprite sprite = null;
+        if (!SpriteCacheDic.TryGetValue(path, out sprite))
+        {
+            sprite = Resources.Load<Sprite>(path);
+            if (sprite == null)
+            {
+                return null;
+            }
+            if (cache)
+            {
+                SpriteCacheDic.Add(path, sprite);
+            }
+        }
+
+        return sprite;
     }
     #region 加载配置
     private XmlNodeList ParseXMLCfg(string xmlCfg)
@@ -188,6 +210,10 @@ public class ResourceService : MonoBehaviour
             {
                 continue;
             }
+            //for (int j = 0; j < temp[i].Count; j++)
+            //{
+            //    Debug.LogError("temp[i]  " + "i    " + i + "   j   " + j + temp[i][j]);
+            //}
             MapCfg cfg = new MapCfg();
             cfg.ID = id;
             cfg.mapName = temp[i][1];
@@ -198,6 +224,7 @@ public class ResourceService : MonoBehaviour
             cfg.playerBomPos = StrToVector3(temp[i][6]);
             cfg.playerBomRote = StrToVector3(temp[i][7]);
             cfg.monsterLst = temp[i][8];
+           
             cfg.exp = int.Parse(temp[i][9]);
             cfg.coin = int.Parse(temp[i][10]);
             cfg.crystal = int.Parse(temp[i][11]);
@@ -225,6 +252,60 @@ public class ResourceService : MonoBehaviour
             vector = new Vector3(float.Parse(temp[0]), float.Parse(temp[1]), float.Parse(temp[2]));
         }
         return vector;
+    }
+
+
+    Dictionary<int, AutoGuideData> autoGuideDataDic = new Dictionary<int, AutoGuideData>();
+    public void InitAutoGuideCfg()
+    {
+        CommonUtility.StartCountTime();
+        autoGuideDataDic.Clear();
+        List<List<string>> temp = ParseRowAll("guide");
+        for (int i = 0; i < temp.Count; i++)
+        {
+            if (!int.TryParse(temp[i][0], out int id))
+            {
+                continue;
+            }
+            AutoGuideData cfg = new AutoGuideData();
+            cfg.ID = id;
+            cfg.npcID = int.Parse(temp[i][1]);
+            cfg.dilogArr = temp[i][2];
+            cfg.actID = int.Parse(temp[i][3]);
+            cfg.coin = int.Parse(temp[i][4]);
+            cfg.exp = int.Parse(temp[i][5]);
+            autoGuideDataDic.Add(id, cfg);
+        }
+        CommonUtility.StopCountTime("Guide.Csv读取速度");
+    }
+
+    public AutoGuideData GetAutoGuideCfg(int id)
+    {
+        AutoGuideData cfg = null;
+        if(autoGuideDataDic.TryGetValue(id,out cfg))
+        {
+
+        }
+        return cfg;
+       
+    }
+    GuideDataInfo[] DataInfos = null;
+    public GuideDataInfo GetGuideDataInfo(int id)
+    {
+        GuideDataInfo info = null;
+        if (DataInfos == null)
+        {
+            DataInfos = GuideData.Instance.guideDataInfos;
+        }
+        for (int i = 0; i < DataInfos.Length; i++)
+        {
+            if (DataInfos[i].nNpcID ==id )
+            {
+                info = DataInfos[i];
+                return info;
+            }
+        }
+        return info;
     }
     #endregion
 

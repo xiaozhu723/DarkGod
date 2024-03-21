@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b0395fb8450984098488c5084582b1, type: 3}
+  m_Name: GuideData
+  m_EditorClassIdentifier: 
+  guideDataInfos:
+  - nNpcID: 0
+    strNpcName: "\u667A\u8005"
+    strNpcIconPath: ResImage/wiseman
+    strNpcGuideSpritePath: ResImage/npc0
+  - nNpcID: 1
+    strNpcName: "\u5C06\u519B"
+    strNpcIconPath: ResImage/general
+    strNpcGuideSpritePath: ResImage/npc1
+  - nNpcID: 2
+    strNpcName: "\u5DE5\u5320"
+    strNpcIconPath: ResImage/artisan
+    strNpcGuideSpritePath: ResImage/npc2
+  - nNpcID: 3
+    strNpcName: "\u5546\u4EBA"
+    strNpcIconPath: ResImage/trader
+    strNpcGuideSpritePath: ResImage/npc3

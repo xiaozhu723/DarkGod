@@ -104,6 +104,10 @@ public class NetServer : MonoBehaviour
                 case ErrorCode.NameIsExists:
                     GameRoot.AddTips("名字已存在");
                     break;
+                case ErrorCode.ServerDataError:
+                    GameRoot.AddTips("数据非法");
+                    break;
+
             }
             return;
         }
@@ -115,6 +119,9 @@ public class NetServer : MonoBehaviour
                 break;
             case EMCMD.ResponseRename: //重命名回包
                 LoginSystem.Instance.ResponseRename(msg);
+                break;
+            case EMCMD.ResponseGuide: //引导回包
+                MainCitySystem.Instance.ResponseGuide(msg);
                 break;
         }
     }

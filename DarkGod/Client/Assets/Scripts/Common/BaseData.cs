@@ -27,3 +27,13 @@ public class MapCfg : BaseData<MapCfg>
     public int coin;
     public int crystal;
 }
+
+//自动任务配置
+public class AutoGuideData : BaseData<AutoGuideData>
+{
+    public int npcID;
+    public string dilogArr;
+    public int actID;
+    public int coin;
+    public int exp;
+}

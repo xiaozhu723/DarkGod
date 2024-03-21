@@ -549,6 +549,7 @@ GameObject:
   - component: {fileID: 3552878742868469066}
   - component: {fileID: 3552878742868469064}
   - component: {fileID: 3552878742868469067}
+  - component: {fileID: 7996964701871133128}
   m_Layer: 0
   m_Name: HeadPortrait
   m_TagString: Untagged
@@ -612,6 +613,48 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &7996964701871133128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3552878742868469069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 3552878742868469067}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &3552878742907989177
 GameObject:
   m_ObjectHideFlags: 0
@@ -2168,12 +2211,13 @@ MonoBehaviour:
   m_PlayerName: {fileID: 6301566203096770727}
   m_UpFigthingBtn: {fileID: 3552878743217991405}
   m_BuyProwerBtn: {fileID: 3552878744885936039}
-  m_AutoTaskBtn: {fileID: 3552878744689002645}
+  m_GuidBtn: {fileID: 3552878744689002645}
   m_ChargeBtn: {fileID: 3552878744284871518}
   m_ArenaBtn: {fileID: 3552878744247836139}
   m_TaskBtn: {fileID: 3552878744193484715}
   m_StrongBtn: {fileID: 3552878743270828696}
   m_MkcoinBtn: {fileID: 3552878744380820646}
+  m_PlayerInfoBtn: {fileID: 7996964701871133128}
   m_MenuToggle: {fileID: 3552878743410699287}
   m_PowerSlider: {fileID: 3552878743273091013}
   m_Grid: {fileID: 2115437895975342389}
@@ -3591,7 +3635,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 80}
+  m_AnchoredPosition: {x: 21, y: 120}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &358082869722693161
@@ -3615,7 +3659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3684,7 +3728,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -633.3, y: -356.8}
+  m_AnchoredPosition: {x: -633.3008, y: -356.8}
   m_SizeDelta: {x: 76, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7831437687317342975

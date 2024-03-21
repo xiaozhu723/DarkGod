@@ -7,7 +7,9 @@
 *****************************************************/
 
 
+using System;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -17,9 +19,14 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     //角色控制器
     public CharacterController controller;
+    //导航寻路组件
+    public NavMeshAgent navMeshAgent;
     //行进方向
     private Vector2 dir = Vector2.zero;
     bool isMove = false;
+    bool isNav = false;
+    Vector3 endNavPos;
+    Action NavCallBack;
 
     float CurrentBlend = 0;
     float targetBlend = 0;
@@ -76,6 +83,21 @@ public class PlayerController : MonoBehaviour
             //摄像机跟随
             SetCar();
         }
+
+        //开始导航
+        if (isNav)
+        {
+            float dis = Vector3.Distance(transform.position, endNavPos);
+            SetCar();
+            if (dis<1.0f)
+            {
+                StopAutoNavigation();
+                if(NavCallBack!=null)
+                {
+                    NavCallBack();
+                }
+            }
+        }
     }
 
     void SetDir()
@@ -115,5 +137,26 @@ public class PlayerController : MonoBehaviour
             CurrentBlend += Time.deltaTime * Constants.AccelerSpeed;
         }
         animator.SetFloat("Blend", CurrentBlend);
+    }
+
+    public void StartAutoNavigation(Vector3 endPos,Action fun)
+    {
+        NavCallBack = fun;
+        endNavPos = endPos;
+        controller.enabled = false;
+        navMeshAgent.enabled = true;
+        SetBlend(Constants.BlendWalk);
+        isNav = true;
+        navMeshAgent.speed = Constants.PlayerSpeed;
+        navMeshAgent.SetDestination(endNavPos);
+    }
+    public void StopAutoNavigation()
+    {
+        if (!isNav) return;
+        isNav = false;
+        controller.enabled = true;
+        navMeshAgent.isStopped = true;
+        navMeshAgent.enabled = false;
+        SetBlend(Constants.BlendIdle);
     }
 }

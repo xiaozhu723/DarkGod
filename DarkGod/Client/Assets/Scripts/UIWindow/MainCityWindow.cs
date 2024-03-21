@@ -7,6 +7,7 @@
 *****************************************************/
 
 using PEProtocol;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,17 +21,22 @@ public class MainCityWindow : WindowRoot
     public Text m_PlayerName;//
     public Button m_UpFigthingBtn;//提升战斗力
     public Button m_BuyProwerBtn;//购买体力
-    public Button m_AutoTaskBtn;//自动任务按钮
+    public Button m_GuidBtn;//自动任务按钮
     public Button m_ChargeBtn;//商城
     public Button m_ArenaBtn;//副本
     public Button m_TaskBtn;//任务
     public Button m_StrongBtn;//强化
     public Button m_MkcoinBtn;//铸造
+    public Button m_PlayerInfoBtn;//玩家信息
     public Toggle m_MenuToggle;//展开收缩按钮
     public Slider m_PowerSlider;//体力进度条
     public GridLayoutGroup m_Grid;
     public Animation m_MenuAin;
     public TouchComponent touch;
+    PlayerData playerData;
+    Image guidBtnImage;
+    Sprite startGuidBtnIcon;
+    AutoGuideData tGuideData;
     protected override void InitWindow()
     {
         base.InitWindow();
@@ -47,20 +53,29 @@ public class MainCityWindow : WindowRoot
     {
         m_UpFigthingBtn.onClick.AddListener(OnClickUpFigthingBtn);
         m_BuyProwerBtn.onClick.AddListener(OnClickBuyProwerBtn);
-        m_AutoTaskBtn.onClick.AddListener(OnClickAutoTaskBtn);
+        m_GuidBtn.onClick.AddListener(OnClickAutoTaskBtn);
         m_ChargeBtn.onClick.AddListener(OnClickChargeBtn);
         m_ArenaBtn.onClick.AddListener(OnClickArenaBtn);
         m_TaskBtn.onClick.AddListener(OnClickTaskBtn);
         m_StrongBtn.onClick.AddListener(OnClickStrongBtn);
         m_MkcoinBtn.onClick.AddListener(OnClickMkcoinBtn);
         m_MenuToggle.onValueChanged.AddListener(OnClickAddToggle);
+        m_PlayerInfoBtn.onClick.AddListener(OnClickPlayerInfoBtn);
         touch.UpdateDir = UpdatePlayerDir;
+        guidBtnImage = m_GuidBtn.GetComponent<Image>();
+        startGuidBtnIcon = guidBtnImage.sprite;
         RefreshUI();
+    }
+
+    private void OnClickPlayerInfoBtn()
+    {
+        audioService.PlayUIMusic(Constants.UIOpenPage);
+        MainCitySystem.Instance.OpenPlayerInfoWindow();
     }
 
     public void RefreshUI()
     {
-        PlayerData playerData = GameRoot.Instance.PlayerData;
+        playerData = GameRoot.Instance.PlayerData;
         if (playerData == null) return;
         SetPower(playerData.Power, playerData.Level);
         SetText(m_PlayerName, playerData.Name);
@@ -68,6 +83,7 @@ public class MainCityWindow : WindowRoot
         SetText(m_FightingText, PECommon.GetFightByProps(playerData));
         SetExpImageSize();
         SetExp(playerData.Exp, playerData.Level);
+        UpdateGuideBtnIcon();
     }
 
     //设置体力
@@ -89,6 +105,21 @@ public class MainCityWindow : WindowRoot
     public void UpdatePlayerDir(Vector2 dir)
     {
         MainCitySystem.Instance.SetPlayerDir(dir);
+    }
+
+    public void  UpdateGuideBtnIcon()
+    {
+        if (playerData == null) return;
+        tGuideData = resService.GetAutoGuideCfg(playerData.guideID);
+        if (tGuideData == null) return;
+        GuideDataInfo info = resService.GetGuideDataInfo(tGuideData.npcID);
+        if (info == null )
+        {
+            guidBtnImage.sprite = startGuidBtnIcon;
+            return;
+        }
+        SetSprite(guidBtnImage, info.strNpcIconPath);
+       
     }
 
     //设置经验条缩放
@@ -132,6 +163,8 @@ public class MainCityWindow : WindowRoot
     public void OnClickAutoTaskBtn()
     {
         PECommon.Log("点击自动任务按钮");
+        Debug.LogError("tGuideData.npcID   " + tGuideData.npcID);
+        MainCitySystem.Instance.RanTask(tGuideData);
     }
     //点击副本按钮
     public void OnClickChargeBtn()

@@ -17,6 +17,8 @@ namespace PEProtocol
         public ResponseLogin resLogin;
         public RequestRename reqRename;
         public ResponseRename rspRename;
+        public RequestGuide reqGuide;
+        public ResponseGuide rsqGuide;
     }
     #region 登录相关
     [Serializable]
@@ -49,6 +51,7 @@ namespace PEProtocol
         public int dodge;//闪避概率
         public int pierce;//穿透比率
         public int critical;//暴击概率
+        public int guideID;//引导Id
     }
 
     //重命名
@@ -65,6 +68,21 @@ namespace PEProtocol
 
     #endregion
 
+    #region 引导相关
+    [Serializable]
+    public class RequestGuide
+    {
+        public int nGuideID;
+    }
+    [Serializable]
+    public class ResponseGuide
+    {
+        public int nGuideID;
+        public int nLevel;
+        public int nCoin;
+        public int nExp;
+    }
+    #endregion
 
     public enum EMCMD
     {
@@ -77,11 +95,14 @@ namespace PEProtocol
         RequestRename = 103,
         ResponseRename = 104,
 
+        RequestGuide = 105,
+        ResponseGuide = 106,
     }
 
     public enum ErrorCode
     {
         None = 0,
+        ServerDataError,//数据错误
         UpdateDBError,//更新数据库错误
         AcctIsOnline ,//账号已登录
         WrongPass,//密码错误

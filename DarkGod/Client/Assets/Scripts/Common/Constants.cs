@@ -25,6 +25,7 @@ public class Constants
     //按钮音效
     public const string UIClickBtn = "uiClickBtn";
     public const string UIExtenBtn = "uiExtenBtn";
+    public const string UIOpenPage = "uiOpenPage";
 
     //原始屏幕
     public const int ScreenStandrdHeight = 750;

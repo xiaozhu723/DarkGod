@@ -285,3 +285,6 @@ D:\UunityProject\DarkGodRoot\DarkGod\Client\obj\Debug\Assembly-CSharp.csproj.Cor
 D:\UunityProject\DarkGodRoot\DarkGod\Client\obj\Debug\Assembly.44154EF1.Up2Date
 D:\UunityProject\DarkGodRoot\DarkGod\Client\obj\Debug\Assembly-CSharp.dll
 D:\UunityProject\DarkGodRoot\DarkGod\Client\obj\Debug\Assembly-CSharp.pdb
+D:\UunityProject\DarkGodRoot\DarkGod\Client\Temp\bin\Debug\Boo.Lang.dll
+D:\UunityProject\DarkGodRoot\DarkGod\Client\Temp\bin\Debug\UnityEditor.UI.dll
+D:\UunityProject\DarkGodRoot\DarkGod\Client\Temp\bin\Debug\UnityEditor.UI.xml

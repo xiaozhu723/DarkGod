@@ -7,6 +7,7 @@
 *****************************************************/
 using PENet;
 using PEProtocol;
+using System.Collections.Generic;
 
 
 public class PECommon
@@ -32,6 +33,27 @@ public class PECommon
     public static int GetExpUpValByLevel(int lv)
     {
         return 100 * lv * lv;
+    }
+
+    public static List<int> GetExpUpLevelNum(int currLevel,  int exp)
+    {
+        int num = 0;
+        int currExp = exp;
+        int nExp = exp;
+        int index = 0;
+        while (currExp>0)
+        {
+            int max = GetExpUpValByLevel(currLevel + index);
+            if (currExp >= max)
+            {
+                num += 1;
+                nExp = nExp - max;
+            }
+            currExp = currExp - max;
+            index++;
+        }
+       
+        return new List<int>() { num, nExp };
     }
 }
 

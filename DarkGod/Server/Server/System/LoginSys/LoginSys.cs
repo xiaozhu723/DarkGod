@@ -77,7 +77,7 @@ public class LoginSys
             playerData.Name = msg.reqRename.strName;
             if (!cacheSvc.UpdatePlayerData(playerData.ID, playerData))
             {
-                msg.err = (int)ErrorCode.UpdateDBError;
+                sendMsg.err = (int)ErrorCode.UpdateDBError;
             }
             else
             {

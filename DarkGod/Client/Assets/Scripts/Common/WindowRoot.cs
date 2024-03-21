@@ -12,13 +12,14 @@ using PEProtocol;
 using System;
 using System;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class WindowRoot : MonoBehaviour
 {
     protected ResourceService resService;
     protected AudioService audioService;
     protected NetServer netServer;
-
+    private UIItem[] mItemArray = null;
 
     public void SetWinState(bool isActive = true)
     {
@@ -93,9 +94,14 @@ public class WindowRoot : MonoBehaviour
         SetText(txt, num.ToString());
     }
 
+    protected void SetSprite(Image img, string path = "")
+    {
+        img.sprite = resService.LoadSprite(path, true);
+    }
+
     #endregion
     #region Click Event
-    protected T GetOrAddComponent<T>(GameObject GO) where T : Component
+    public T GetOrAddComponent<T>(GameObject GO) where T : Component
     {
         T t = GO.GetComponent<T>();
         if (t == null)
@@ -104,22 +110,67 @@ public class WindowRoot : MonoBehaviour
         }
         return t ;
     }
-    protected void OnPointerDown(GameObject GO, Action<PointerEventData> action)
+    public void OnPointerDown(GameObject GO, Action<PointerEventData> action)
     {
         PEListentr pe = GetOrAddComponent<PEListentr>(GO);
         pe.OnPointerDownEvent += action;
     }
-    protected void OnPointerUp(GameObject GO, Action<PointerEventData> action)
+    public void OnPointerUp(GameObject GO, Action<PointerEventData> action)
     {
         PEListentr pe = GetOrAddComponent<PEListentr>(GO);
         pe.OnPointerUpEvent += action;
     }
-    protected void OnDrag(GameObject GO, Action<PointerEventData> action)
+    public void OnDrag(GameObject GO, Action<PointerEventData> action)
     {
         PEListentr pe = GetOrAddComponent<PEListentr>(GO);
         pe.OnDragEvent += action;
     }
     #endregion
+    Dictionary<Transform, UIItem[]> mItemDic = new Dictionary<Transform, UIItem[]>();
+    public  void AddItem(List<UIItemData> list, Transform parent,GameObject item)
+    {
+        if (list == null || list.Count <= 0)
+        {
+            PECommon.Log("AddItem list==null ", LogType.Error);
+            return;
+        }
+        UIItem[] mItemArray = null;
+        if (mItemDic.TryGetValue(parent,out mItemArray)&& mItemArray.Length== list.Count)
+        {
+            for (int i = 0; i < mItemArray.Length; i++)
+            {
+                UIItem uiItem = mItemArray[i];
+                if (uiItem == null)
+                {
+                    PECommon.Log("预制体脚本必须继承 UIItem", LogType.Error);
+                }
+                uiItem.Show();
+                uiItem.SetData(list[i]);
+                mItemArray[i] = uiItem;
+            }
+            mItemDic[parent] = mItemArray;
+            return;
+        }
+        mItemArray = new UIItem[list.Count];
+        for (int i = 0; i < list.Count; i++)
+        {
+            GameObject go = Instantiate(item);
+            UIItem uiItem = go.GetComponent<UIItem>();
+            if (uiItem == null)
+            {
+                PECommon.Log("预制体脚本必须继承 UIItem", LogType.Error);
+            }
+            go.transform.parent = parent;
+            go.transform.localPosition = Vector3.zero;
+            go.transform.localScale = Vector3.one;
+            uiItem.Show();
+            uiItem.SetData(list[i]);
+            mItemArray[i] = uiItem;
+        }
+        
+        mItemDic.Add(parent, mItemArray);
+    }
+
     private void OnDestroy()
     {
         Clear();
