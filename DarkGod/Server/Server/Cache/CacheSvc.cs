@@ -102,4 +102,31 @@ public class CacheSvc
         }
         onlineSessionDic.Remove(session);
     }
+
+    public Dictionary<ServerSession, PlayerData> GetPlayerByChatType(ChatType type)
+    {
+        Dictionary<ServerSession, PlayerData> dic = new Dictionary<ServerSession, PlayerData>();
+        switch (type)
+        {
+            case ChatType.WordChat:
+                dic = onlineSessionDic;
+                break;
+        }
+
+        return dic;
+    }
+
+    public Dictionary<ServerSession, PlayerData> GetAddPowerPlayer()
+    {
+        Dictionary<ServerSession, PlayerData> dic = new Dictionary<ServerSession, PlayerData>();
+        foreach (var item in onlineSessionDic)
+        {
+            int powerLimit = PECommon.GetPowerLimit(item.Value.Level);
+            if (item.Value.Power < powerLimit)
+            {
+                dic.Add(item.Key, item.Value);
+            }
+        }
+        return dic;
+    }
 }

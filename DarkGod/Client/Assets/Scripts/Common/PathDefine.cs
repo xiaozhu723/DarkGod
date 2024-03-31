@@ -14,5 +14,8 @@ public class PathDefine
     public const string AssissnCityPlayerPrefab = "PrefabPlayer/AssassinCity";
     public const string AssissnCityNPCPrefab = "PrefabNPC/NPC_";
 
+    public const string AssissnBattlePlayerPrefab = "PrefabPlayer/AssassinBattle";
+
+
     public const string PlayerAssassinImage = "ResImage/assassin";
 }

@@ -12,6 +12,8 @@ using System.Collections.Generic;
 
 public class PECommon
 {
+    public const int PowerAddSpace = 5;
+    public const int AddPowerNum = 2;
     public static void Log(string message = "", LogType LogLevel = LogType.Info)
     {
         PETool.LogMsg(message, (LogLevel)LogLevel);
@@ -25,6 +27,12 @@ public class PECommon
 
     //获取玩家体力上限
     public static int GetPowerLimit(int lv)
+    {
+        return ((lv - 1) / 10) * 150 + 150;
+    }
+
+    //获取玩家血量上限
+    public static int GetHPLimit(int lv)
     {
         return ((lv - 1) / 10) * 150 + 150;
     }

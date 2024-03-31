@@ -30,7 +30,7 @@ public class PlayerInfoWindow : WindowRoot
     private Vector3 startPos;
 
     public GameObject objDetail;
-    public GameObject itemGrid;
+    public PEGrid itemGrid;
     public GameObject m_DetailItem;
     public Button m_DetailCloseBtn;
     protected override void InitWindow()
@@ -97,6 +97,7 @@ public class PlayerInfoWindow : WindowRoot
     //点击详细属性按钮
     public void OnClickAttributeBtn()
     {
+        audioService.PlayUIMusic(Constants.UIClickBtn);
         objDetail.SetActive(true);
     }
 
@@ -108,6 +109,7 @@ public class PlayerInfoWindow : WindowRoot
 
     public void OnClickDetailCloseBtn()
     {
+        audioService.PlayUIMusic(Constants.UIClickBtn);
         objDetail.SetActive(false);
     }
 
@@ -125,7 +127,7 @@ public class PlayerInfoWindow : WindowRoot
              new DetailItemData(){ nIndex = 7, Name = "暴击概率", Num = playerData.critical.ToString()+"%"},
         };
 
-        AddItem(list, itemGrid.transform, m_DetailItem);
+        itemGrid.UpdateItemList(list);
     }
 }
 

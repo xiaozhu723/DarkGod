@@ -27,16 +27,67 @@ public class CfgSvc
 
     public void Init()
     {
+        InitMapCfg();
         InitAutoGuideCfg();
+        InitStrongCfg();
+        InitTaskCfg();
         PECommon.Log("CfgSvc  Init  Done");
     }
 
+    public List<List<string>>  RowAllCfg(string name)
+    {
+       return  ParseRowAll(string.Format(@"D:\UunityProject\DarkGodRoot\DarkGod\Client\Assets\StreamingAssets\ResCfgs\{0}.csv", name));
+    }
+
+    Dictionary<int, MapCfg> mapCfgDic = new Dictionary<int, MapCfg>();
+    public void InitMapCfg()
+    {
+        
+        mapCfgDic.Clear();
+        List<List<string>> temp = RowAllCfg("map");
+        for (int i = 0; i < temp.Count; i++)
+        {
+
+            if (!int.TryParse(temp[i][0], out int id))
+            {
+                continue;
+            }
+            //for (int j = 0; j < temp[i].Count; j++)
+            //{
+            //    Debug.LogError("temp[i]  " + "i    " + i + "   j   " + j + temp[i][j]);
+            //}
+            MapCfg cfg = new MapCfg();
+            cfg.ID = id;
+            cfg.mapName = temp[i][1];
+            cfg.sceneName = temp[i][2];
+            cfg.power = int.Parse(temp[i][3]);
+            cfg.monsterLst = temp[i][8];
+
+            cfg.exp = int.Parse(temp[i][9]);
+            cfg.coin = int.Parse(temp[i][10]);
+            cfg.crystal = int.Parse(temp[i][11]);
+            mapCfgDic.Add(id, cfg);
+        }
+        
+    }
+
+    public MapCfg GetMapCfg(int id)
+    {
+        MapCfg cfg = null;
+        if (mapCfgDic.TryGetValue(id, out cfg))
+        {
+            return cfg;
+        }
+        return cfg;
+    }
+
+    //引导
     Dictionary<int, AutoGuideData> autoGuideDataDic = new Dictionary<int, AutoGuideData>();
     public void InitAutoGuideCfg()
     {
         
         autoGuideDataDic.Clear();
-        List<List<string>> temp = ParseRowAll(@"D:\UunityProject\DarkGodRoot\DarkGod\Client\Assets\Resources\ResCfgs\guide.csv");
+        List<List<string>> temp = RowAllCfg("guide");
         for (int i = 0; i < temp.Count; i++)
         {
             if (!int.TryParse(temp[i][0], out int id))
@@ -64,6 +115,131 @@ public class CfgSvc
         }
         return cfg;
 
+    }
+
+    //强化配置
+    Dictionary<int, List<StrongData>> StrongDataDic = new Dictionary<int, List<StrongData>>();
+    public void InitStrongCfg()
+    {
+        
+        StrongDataDic.Clear();
+        List<List<string>> temp = RowAllCfg("strong");
+        int partID = -1;
+        string path = "";
+        for (int i = 0; i < temp.Count; i++)
+        {
+            if (!int.TryParse(temp[i][0], out int id))
+            {
+                continue;
+            }
+
+            StrongData cfg = new StrongData();
+            cfg.ID = id;
+            int paId = int.Parse(temp[i][1]);
+            if (partID != paId)
+            {
+                partID = paId;
+                StrongDataDic.Add(partID, new List<StrongData>());
+            }
+            cfg.nPartID = paId;
+            cfg.nStarLevel = int.Parse(temp[i][2]);
+            cfg.nAddHP = int.Parse(temp[i][3]);
+            cfg.nAddHurt = int.Parse(temp[i][4]);
+            cfg.nAddDef = int.Parse(temp[i][5]);
+            cfg.nNeedLevel = int.Parse(temp[i][6]);
+            cfg.nNeedCoin = int.Parse(temp[i][7]);
+
+            cfg.nNeedCrystal = int.Parse(temp[i][8]);
+            string str = temp[i][9];
+            if (str != "")
+            {
+                path = str;
+            }
+            cfg.iconPath = path;
+            StrongDataDic[partID].Add(cfg);
+        }
+        
+    }
+
+    public StrongData GetStrongCfg(int id, int starLevel)
+    {
+        List<StrongData> cfg = null;
+        StrongData data = null;
+        if (StrongDataDic.TryGetValue(id, out cfg))
+        {
+            for (int i = 0; i < cfg.Count; i++)
+            {
+                if (starLevel == cfg[i].nStarLevel)
+                {
+                    data = cfg[i];
+                    return data;
+                }
+            }
+        }
+        return data;
+    }
+
+    public int GetStrongMaxSartLevel(int id)
+    {
+        int starLevel = 0;
+        List<StrongData> cfg = null;
+        if (StrongDataDic.TryGetValue(id, out cfg))
+        {
+            for (int i = 0; i < cfg.Count; i++)
+            {
+                if (cfg[i].nStarLevel > starLevel)
+                {
+                    starLevel = cfg[i].nStarLevel;
+                }
+            }
+        }
+        return starLevel;
+    }
+
+    //任务配置
+    List<TaskData> TaskDataList = new List<TaskData>();
+    public void InitTaskCfg()
+    {
+      
+        TaskDataList.Clear();
+        List<List<string>> temp = RowAllCfg("taskreward");
+        int partID = -1;
+        string path = "";
+        for (int i = 0; i < temp.Count; i++)
+        {
+            if (!int.TryParse(temp[i][0], out int id))
+            {
+                continue;
+            }
+
+            TaskData cfg = new TaskData();
+            cfg.ID = id;
+            cfg.strTaskName = temp[i][1];
+            cfg.nMaxCount = int.Parse(temp[i][2]);
+            cfg.nExp = int.Parse(temp[i][3]);
+            cfg.nCoin = int.Parse(temp[i][4]);
+            TaskDataList.Add(cfg);
+        }
+        
+    }
+
+    public List<TaskData> GetTaskDataList()
+    {
+        return TaskDataList;
+    }
+
+    public TaskData GetTaskData(int ID)
+    {
+        TaskData taskData = null;
+        for (int i = 0; i < TaskDataList.Count; i++)
+        {
+            if (TaskDataList[i].ID == ID)
+            {
+                taskData = TaskDataList[i];
+                return taskData;
+            }
+        }
+        return taskData;
     }
 
     #region csv读取
@@ -205,4 +381,38 @@ public class AutoGuideData : BaseData<AutoGuideData>
     public int actID;
     public int coin;
     public int exp;
+}
+
+//强化配置
+public class StrongData : BaseData<StrongData>
+{
+    public int nPartID;//部件id
+    public int nStarLevel;
+    public int nAddHP;
+    public int nAddHurt;
+    public int nAddDef;
+    public int nNeedLevel;
+    public int nNeedCoin;
+    public int nNeedCrystal;
+    public string iconPath;
+}
+
+//任务配置
+public class TaskData : BaseData<TaskData>
+{
+    public string strTaskName;
+    public int nMaxCount;
+    public int nExp;
+    public int nCoin;
+}
+
+public class MapCfg : BaseData<MapCfg>
+{
+    public string mapName;
+    public string sceneName;
+    public int power;
+    public string monsterLst;
+    public int exp;
+    public int coin;
+    public int crystal;
 }

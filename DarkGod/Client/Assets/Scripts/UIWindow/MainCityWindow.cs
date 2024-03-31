@@ -3,7 +3,7 @@
 	作者：朱江
     邮箱:  839149608@qq.com
     日期：2024/3/16 14:38:49
-	功能：Nothing
+	功能：主城界面
 *****************************************************/
 
 using PEProtocol;
@@ -33,6 +33,11 @@ public class MainCityWindow : WindowRoot
     public GridLayoutGroup m_Grid;
     public Animation m_MenuAin;
     public TouchComponent touch;
+
+    public Button m_ChatSendBtn;//发送聊天消息
+    public Button m_OpenChatBtn;//打开聊天窗口
+    public InputField m_ChatInputField;//聊天输入
+
     PlayerData playerData;
     Image guidBtnImage;
     Sprite startGuidBtnIcon;
@@ -61,6 +66,10 @@ public class MainCityWindow : WindowRoot
         m_MkcoinBtn.onClick.AddListener(OnClickMkcoinBtn);
         m_MenuToggle.onValueChanged.AddListener(OnClickAddToggle);
         m_PlayerInfoBtn.onClick.AddListener(OnClickPlayerInfoBtn);
+
+        m_ChatSendBtn.onClick.AddListener(OnClickChatSendBtn);
+        m_OpenChatBtn.onClick.AddListener(OnClickOpenChatBtn);
+
         touch.UpdateDir = UpdatePlayerDir;
         guidBtnImage = m_GuidBtn.GetComponent<Image>();
         startGuidBtnIcon = guidBtnImage.sprite;
@@ -158,38 +167,94 @@ public class MainCityWindow : WindowRoot
     public void OnClickBuyProwerBtn()
     {
         PECommon.Log("点击购买体力按钮");
+        audioService.PlayUIMusic(Constants.UIClickBtn);
+        MainCitySystem.Instance.OpenBuyWindow(BuyType.BuyPower);
     }
     //点击自动任务按钮
     public void OnClickAutoTaskBtn()
     {
         PECommon.Log("点击自动任务按钮");
-        Debug.LogError("tGuideData.npcID   " + tGuideData.npcID);
+        audioService.PlayUIMusic(Constants.UIClickBtn);
         MainCitySystem.Instance.RanTask(tGuideData);
+        RaycastDetection.Instance.RegisterRaycastDetection(m_GuidBtn.transform, RegisterFunction);
     }
-    //点击副本按钮
+
+    public void RegisterFunction(bool isTrue)
+    {
+        UnRegisterFunction();
+    }
+    public void UnRegisterFunction()
+    {
+        RaycastDetection.Instance.UnRegisterRaycastDetection(m_GuidBtn.transform);
+        MainCitySystem.Instance.StopAutoNavigation();
+    }
+    //点击商城按钮
     public void OnClickChargeBtn()
     {
         PECommon.Log("点击商城按钮");
     }
-    //点击商城按钮
+    //点击副本按钮
     public void OnClickArenaBtn()
     {
-        PECommon.Log("点击商城按钮");
+        PECommon.Log("副本按钮");
+        audioService.PlayUIMusic(Constants.UIOpenPage);
+        MainCitySystem.Instance.EnterGameInstance();
     }
     //点击任务按钮
     public void OnClickTaskBtn()
     {
         PECommon.Log("点击任务按钮");
+        audioService.PlayUIMusic(Constants.UIOpenPage);
+        MainCitySystem.Instance.OpenTaskWindow();
     }
     //点击强化按钮
     public void OnClickStrongBtn()
     {
         PECommon.Log("点击强化按钮");
+        audioService.PlayUIMusic(Constants.UIOpenPage);
+        MainCitySystem.Instance.OpenStrongWindow();
     }
     //点击铸造按钮
     public void OnClickMkcoinBtn()
     {
         PECommon.Log("点击铸造按钮");
+        audioService.PlayUIMusic(Constants.UIClickBtn);
+        MainCitySystem.Instance.OpenBuyWindow(BuyType.BuyCoin);
+    }
+
+    private void OnClickOpenChatBtn()
+    {
+        audioService.PlayUIMusic(Constants.UIOpenPage);
+        MainCitySystem.Instance.OpenChatWindow();
+    }
+
+    private void OnClickChatSendBtn()
+    {
+        audioService.PlayUIMusic(Constants.UIClickBtn);
+        if (ChatSystem.Instance.CurrChatType == ChatType.UnionChat)
+        {
+            GameRoot.AddTips( "暂未加入公会");
+            m_ChatInputField.text = "";
+            return;
+        }
+        if (ChatSystem.Instance.CurrChatType == ChatType.FriendChat)
+        {
+            GameRoot.AddTips("暂无好友信息");
+            m_ChatInputField.text = "";
+            return;
+        }
+        if(string.IsNullOrEmpty(m_ChatInputField.text))
+        {
+            GameRoot.AddTips("发送消息不能为空");
+            return;
+        }
+        if (m_ChatInputField.text.Length>12)
+        {
+            GameRoot.AddTips("输入消息不能超过12个字");
+            return;
+        }
+        ChatSystem.Instance.SendChat(m_ChatInputField.text);
+        m_ChatInputField.text = "";
     }
     //点击界面展开动画开关
     public void OnClickAddToggle(bool isOn)

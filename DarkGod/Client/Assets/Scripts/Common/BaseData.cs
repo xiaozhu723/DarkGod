@@ -37,3 +37,51 @@ public class AutoGuideData : BaseData<AutoGuideData>
     public int coin;
     public int exp;
 }
+
+//强化配置
+public class StrongData : BaseData<StrongData>
+{
+    public int nPartID;//部件id
+    public int nStarLevel;
+    public int nAddHP;
+    public int nAddHurt;
+    public int nAddDef;
+    public int nNeedLevel;
+    public int nNeedCoin;
+    public int nNeedCrystal;
+    public string iconPath;
+}
+
+//任务配置
+public class TaskData : BaseData<TaskData>
+{
+    public string strTaskName;
+    public int nMaxCount;
+    public int nExp;
+    public int nCoin;
+}
+
+//技能配置
+public class SkillData : BaseData<SkillData>
+{
+    public string strSkillName;
+    public int nCDTime;
+    public int nSkillTime;
+    public int nAniAction;//动画播放标志位
+    public string strFxName;//特效名字
+    public bool isCombo;
+    public bool isCollide;
+    public bool isBreak;
+    public int dmgType;
+    public int[] skillMoveLst;
+    public int[] skillActionLst;
+    public int[] skillDamageLst;
+}
+
+//技能位移
+public class SkillMove : BaseData<SkillMove>
+{
+    public int nDelayTime;
+    public int nMoveTime;
+    public float moveDis;
+}

@@ -40,12 +40,13 @@ public class GuideSys
         PlayerData playerData = cacheSvc.GetPlayerDataBySession(pack.serverSession);
         if(playerData.guideID== pack.msg.reqGuide.nGuideID)
         {
+            AutoGuideData currCfg = CfgSvc.Instance.GetAutoGuideCfg(playerData.guideID);
             AutoGuideData NextCfg = CfgSvc.Instance.GetAutoGuideCfg(playerData.guideID+1);
             sendMsg.rsqGuide = new ResponseGuide();
             playerData.guideID = NextCfg ==null ? playerData.guideID  : playerData.guideID +1;
             sendMsg.rsqGuide.nGuideID = playerData.guideID;
+
             //更新玩家数据
-            AutoGuideData currCfg =  CfgSvc.Instance.GetAutoGuideCfg(playerData.guideID);
             if(currCfg!=null)
             {
                 List<int> list = PECommon.GetExpUpLevelNum(playerData.Level, playerData.Exp + currCfg.exp);
@@ -61,6 +62,11 @@ public class GuideSys
                     sendMsg.rsqGuide.nExp = playerData.Exp;
                     sendMsg.rsqGuide.nCoin = playerData.Coin;
                     sendMsg.rsqGuide.nLevel = playerData.Level;
+                    PECommon.Log("currCfg.ID  id =   " + currCfg.ID+ "    playerData.guideID  "+ playerData.guideID);
+                    if (currCfg.ID== 1001)
+                    {
+                        TaskSys.Instance.UpdatePlayerTask(pack.serverSession, 1);
+                    }
                 }
             }
         }

@@ -18,21 +18,35 @@ public class ServerRoot
 
 	public void Init()
 	{
-		//数据层
-		DBManager.Instance.Init();
-
+        //数据层
+        CfgSvc.Instance.Init();
+        DBManager.Instance.Init();
+       
         //网络服务系统
         CacheSvc.Instance.Init();
 
         NetSvc.Instance.Init();
-
-		//登陆系统
-		LoginSys.Instance.Init();
-		CfgSvc.Instance.Init();
-		GuideSys.Instance.Init();
+		TimerSvc.Instance.Init();
+        //登陆系统
+        LoginSys.Instance.Init();
+		
+        TaskSys.Instance.Init();
+        GuideSys.Instance.Init();
+        StrongSys.Instance.Init();
+		ChatSys.Instance.Init();
+        BuySys.Instance.Init();
+		PowerSys.Instance.Init();
+		FuBenSys.Instance.Init();
     }
 
-	int nSession = 0;
+	public void Update()
+	{
+        NetSvc.Instance.Update();
+        TimerSvc.Instance.Update();
+    }
+
+
+    int nSession = 0;
 	public int GetSessionID()
 	{
 		return nSession += 1;

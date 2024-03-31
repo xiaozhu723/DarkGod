@@ -82,6 +82,12 @@ public class GameRoot : MonoBehaviour
             resSer.Init();
         }
 
+        TimerService timerService = GetComponent<TimerService>();
+        if (timerService != null)
+        {
+            timerService.Init();
+        }
+
         //音频模块初始化
         AudioService audioService = GetComponent<AudioService>();
         if (audioService != null)
@@ -108,6 +114,29 @@ public class GameRoot : MonoBehaviour
         {
             mainCitySys.Init();
         }
+
+        ChatSystem chatSystem = GetComponent<ChatSystem>();
+        if (chatSystem != null)
+        {
+            chatSystem.Init();
+        }
+
+        GameInstanceSystem gameInstanceSystem = GetComponent<GameInstanceSystem>();
+        if (gameInstanceSystem != null)
+        {
+            gameInstanceSystem.Init();
+        }
+        RaycastDetection raycastDetection = GetComponent<RaycastDetection>();
+        if (raycastDetection != null)
+        {
+            raycastDetection.Init();
+        }
+        BattleSystem battleSystem = GetComponent<BattleSystem>();
+        if (battleSystem != null)
+        {
+            battleSystem.Init();
+        }
+        
     }
 
     public void SetPlayerData(PlayerData playerData)

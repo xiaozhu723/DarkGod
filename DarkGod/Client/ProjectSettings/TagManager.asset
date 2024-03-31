@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - CharShowCam
+  - MapRoot
   layers:
   - Default
   - TransparentFX

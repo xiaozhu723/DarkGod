@@ -1,4 +1,5 @@
-﻿/****************************************************
+﻿using System.Threading;
+/****************************************************
 	文件：ServerStart.cs
 	作者：朱江
 	邮箱:  839149608@qq.com
@@ -14,7 +15,8 @@ public class ServerStart
 
 		while (true)
 		{
-			NetSvc.Instance.Update();
-		}
+			ServerRoot.Instance.Update();
+			Thread.Sleep(20);
+        }
     }
 }

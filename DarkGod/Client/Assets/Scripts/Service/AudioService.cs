@@ -8,14 +8,15 @@
 
 using UnityEngine;
 
-public class AudioService : MonoBehaviour
+public class AudioService : SystemRoot
 {
     public static AudioService Instance { get; private set; }
     public AudioSource BgAudio;
     public AudioSource UIAudio;
 
-    public void Init()
+    public override void Init()
     {
+        base.Init();
         Instance = this;
     }
     public void PlayBGMusic(string audioName, bool isLoop = false)

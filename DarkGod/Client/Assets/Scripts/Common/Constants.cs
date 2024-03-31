@@ -18,6 +18,7 @@ public class Constants
     //背景音效
     public const string BGLogin = "bgLogin";
     public const string BGMainCity = "bgMainCity";
+    public const string BGHuangYe = "bgHuangYe";
 
     //进入游戏按钮音效
     public const string BGLoginBtn = "uiLoginBtn";
@@ -26,6 +27,7 @@ public class Constants
     public const string UIClickBtn = "uiClickBtn";
     public const string UIExtenBtn = "uiExtenBtn";
     public const string UIOpenPage = "uiOpenPage";
+    public const string Fbitem = "fbitem";
 
     //原始屏幕
     public const int ScreenStandrdHeight = 750;
@@ -41,7 +43,13 @@ public class Constants
     //动画平滑加速度
     public const float AccelerSpeed = 5;
 
+    //SkilAnction触发参数
+    public const int SkillActionDefault = -1;
+
     //动画混合参数
     public const int BlendIdle = 0;
     public const int BlendWalk = 1;
+
+    //聊天最大储存值
+    public const int ChatMaxCount = 100;
 }

@@ -32,8 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="PESocket">
-      <HintPath>..\PESocket.dll</HintPath>
+    <Reference Include="PESocket, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\PESocket.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>

@@ -9,6 +9,7 @@ using MySql.Data.MySqlClient;
 using PEProtocol;
 using System;
 using System.Runtime.Remoting.Messaging;
+using System.Threading.Tasks;
 public class DBManager
 {
     private static DBManager instance = null;
@@ -46,6 +47,26 @@ public class DBManager
                 isNew = false;
                 if (pass.Equals(reader.GetString("pass")))
                 {
+                  
+                    var Arr = reader.GetString("strongArr").Split('#');
+                    int[] temp = new int[Arr.Length];
+                    for (int i = 0; i < Arr.Length; i++)
+                    {
+                        temp[i] = Convert.ToInt32(Arr[i]);
+                    }
+                    var Arr2 = reader.GetString("taskArr").Split('#');
+                    int[] temp2 = new int[Arr2.Length];
+                    for (int i = 0; i < Arr2.Length; i++)
+                    {
+                        temp2[i] = Convert.ToInt32(Arr2[i]);
+                    }
+
+                    var Arr3 = reader.GetString("taskReceiveArr").Split('#');
+                    int[] temp3 = new int[Arr3.Length];
+                    for (int i = 0; i < Arr3.Length; i++)
+                    {
+                        temp3[i] = Convert.ToInt32(Arr3[i]);
+                    }
                     playerData = new PlayerData
                     {
                         ID = reader.GetInt32("id"),
@@ -63,7 +84,13 @@ public class DBManager
                         dodge = reader.GetInt32("dodge"),
                         pierce = reader.GetInt32("pierce"),
                         critical = reader.GetInt32("critical"),
-                        guideID = reader.GetInt32("guideID")
+                        guideID = reader.GetInt32("guideID"),
+                        strongArr = temp,//强化部件星际数组 格式：1#2#3...
+                        materials = reader.GetInt32("materials"),
+                        offlineTime = reader.GetInt64("offlineTime"),
+                        taskArr = temp2,
+                        taskReceiveArr = temp3,
+                        missionNum = reader.GetInt32("missionNum"),
                     };
                 }
                 else
@@ -85,6 +112,7 @@ public class DBManager
             }
             if (isNew)
             {
+                var list = CfgSvc.Instance.GetTaskDataList();
                 playerData = new PlayerData
                 {
                     ID = -1,
@@ -103,6 +131,15 @@ public class DBManager
                     pierce = 5,
                     critical = 2,
                     guideID = 1001,
+                    strongArr = new int[]
+                    {
+                        0,0,0,0,0,0
+                    },
+                    materials =20,
+                    offlineTime = TimerSvc.Instance.GetNowTime(),
+                    taskArr = new int[list.Count],
+                    taskReceiveArr = new int[list.Count],
+                    missionNum =10001,
                 };
                 playerData.ID = InsertNewAcct(acct, pass, playerData);
             }
@@ -116,8 +153,26 @@ public class DBManager
         int id = -1;
         try
         {
+            string strong = "";
+            for (int i = 0; i < pd.strongArr.Length; i++)
+            {
+                strong = strong +(i ==0?"": "#" )+ pd.strongArr[i];
+            }
+
+            string task = "";
+            for (int i = 0; i < pd.taskArr.Length; i++)
+            {
+                task = task + (i == 0 ? "" : "#") + pd.taskArr[i];
+            }
+         
+            string taskReceive = "";
+            for (int i = 0; i < pd.taskReceiveArr.Length; i++)
+            {
+                taskReceive = taskReceive + (i == 0 ? "" : "#") + pd.taskReceiveArr[i];
+            }
+           
             MySqlCommand cmd = new MySqlCommand(
-                "insert into account set acct=@acct,pass =@pass,name=@name,level=@level,exp=@exp,power=@power,coin=@coin,diamond=@diamond,hp=@hp,ad=@ad,ap=@ap,addef=@addef,apdef=@apdef,dodge=@dodge,pierce=@pierce,critical=@critical,guideID=@guideID", conn);
+                "insert into account set acct=@acct,pass =@pass,name=@name,level=@level,exp=@exp,power=@power,coin=@coin,diamond=@diamond,hp=@hp,ad=@ad,ap=@ap,addef=@addef,apdef=@apdef,dodge=@dodge,pierce=@pierce,critical=@critical,guideID=@guideID,strongArr=@strongArr,materials=@materials,offlineTime=@offlineTime,taskArr=@taskArr,taskReceiveArr=@taskReceiveArr,missionNum=@missionNum", conn);
             cmd.Parameters.AddWithValue("acct", acct);
             cmd.Parameters.AddWithValue("pass", pass);
             cmd.Parameters.AddWithValue("name", pd.Name);
@@ -135,6 +190,12 @@ public class DBManager
             cmd.Parameters.AddWithValue("pierce", pd.pierce);
             cmd.Parameters.AddWithValue("critical", pd.critical);
             cmd.Parameters.AddWithValue("guideID", pd.guideID);
+            cmd.Parameters.AddWithValue("strongArr", strong);
+            cmd.Parameters.AddWithValue("materials", pd.materials);
+            cmd.Parameters.AddWithValue("offlineTime", pd.offlineTime);
+            cmd.Parameters.AddWithValue("taskArr", task);
+            cmd.Parameters.AddWithValue("taskReceiveArr", taskReceive);
+            cmd.Parameters.AddWithValue("missionNum", pd.missionNum);
             
             cmd.ExecuteNonQuery();
             id = (int)cmd.LastInsertedId;
@@ -182,8 +243,24 @@ public class DBManager
         //更新玩家数据
         try
         {
+            string strong = "";
+            for (int i = 0; i < playerData.strongArr.Length; i++)
+            {
+                strong = strong + (i == 0 ? "" : "#") + playerData.strongArr[i];
+            }
+
+            string task = "";
+            for (int i = 0; i < playerData.taskArr.Length; i++)
+            {
+                task = task + (i == 0 ? "" : "#") + playerData.taskArr[i];
+            }
+            string taskReceive = "";
+            for (int i = 0; i < playerData.taskReceiveArr.Length; i++)
+            {
+                taskReceive = taskReceive + (i == 0 ? "" : "#") + playerData.taskReceiveArr[i];
+            }
             MySqlCommand cmd = new MySqlCommand(
-      "update account set name=@name,level=@level,exp=@exp,power=@power,coin=@coin,diamond=@diamond,hp=@hp,ad=@ad,ap=@ap,addef=@addef,apdef=@apdef,dodge=@dodge,pierce=@pierce,critical=@critical,guideID=@guideID where id =@id", conn);
+      "update account set name=@name,level=@level,exp=@exp,power=@power,coin=@coin,diamond=@diamond,hp=@hp,ad=@ad,ap=@ap,addef=@addef,apdef=@apdef,dodge=@dodge,pierce=@pierce,critical=@critical,guideID=@guideID,strongArr=@strongArr,materials=@materials,offlineTime=@offlineTime,taskArr=@taskArr,taskReceiveArr=@taskReceiveArr,missionNum=@missionNum where id =@id", conn);
             cmd.Parameters.AddWithValue("id", id);
             cmd.Parameters.AddWithValue("name", playerData.Name);
             cmd.Parameters.AddWithValue("level", playerData.Level);
@@ -200,6 +277,12 @@ public class DBManager
             cmd.Parameters.AddWithValue("pierce", playerData.pierce);
             cmd.Parameters.AddWithValue("critical", playerData.critical);
             cmd.Parameters.AddWithValue("guideID", playerData.guideID);
+            cmd.Parameters.AddWithValue("strongArr", strong);
+            cmd.Parameters.AddWithValue("materials", playerData.materials);
+            cmd.Parameters.AddWithValue("offlineTime", playerData.offlineTime);
+            cmd.Parameters.AddWithValue("taskArr", task);
+            cmd.Parameters.AddWithValue("taskReceiveArr", taskReceive);
+            cmd.Parameters.AddWithValue("missionNum", playerData.missionNum);
             //TOADD Others
             cmd.ExecuteNonQuery();
         }

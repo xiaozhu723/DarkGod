@@ -48,7 +48,7 @@ public class NetServer : MonoBehaviour
                      break;
              }
          });
-        mClient.StartAsClient(IPCfg.srvIP, IPCfg.srvPort);
+        mClient.StartAsClient("192.168.0.100", IPCfg.srvPort);
         Debug.Log("Init NetServer....");
     }
 
@@ -107,7 +107,27 @@ public class NetServer : MonoBehaviour
                 case ErrorCode.ServerDataError:
                     GameRoot.AddTips("数据非法");
                     break;
-
+                case ErrorCode.CoinShort:
+                    GameRoot.AddTips("金币不足！");
+                    break;
+                case ErrorCode.MaterialsShort:
+                    GameRoot.AddTips("材料不足！");
+                    break;
+                case ErrorCode.LevelShort:
+                    GameRoot.AddTips("等级不足！");
+                    break;
+                case ErrorCode.DiamondShort:
+                    GameRoot.AddTips("钻石不足！");
+                    break;
+                case ErrorCode.AlreadyAward:
+                    GameRoot.AddTips("奖励已领取！");
+                    break;
+                case ErrorCode.UnfinishTask:
+                    GameRoot.AddTips("条件未达成！");
+                    break;
+                case ErrorCode.PowerShort:
+                    GameRoot.AddTips("体力不足！");
+                    break;
             }
             return;
         }
@@ -122,6 +142,27 @@ public class NetServer : MonoBehaviour
                 break;
             case EMCMD.ResponseGuide: //引导回包
                 MainCitySystem.Instance.ResponseGuide(msg);
+                break;
+            case EMCMD.ResponseStrong: //强化回包
+                MainCitySystem.Instance.ResponseStrong(msg);
+                break;
+            case EMCMD.PushChat: //聊天回包
+                ChatSystem.Instance.PushChat(msg);
+                break;
+            case EMCMD.ResponseBuy: //购买回包
+                MainCitySystem.Instance.ResponseBuy(msg);
+                break;
+            case EMCMD.PushAddPower: //恢复体力回包
+                MainCitySystem.Instance.PushAddPower(msg);
+                break;
+            case EMCMD.PushTask: //任务进度回包
+                MainCitySystem.Instance.PushTask(msg);
+                break;
+            case EMCMD.ResponseTaskReceive: //任务奖励领取回包
+                MainCitySystem.Instance.ResponseTaskReceive(msg);
+                break;
+            case EMCMD.ResponseFuBenFight: //进入副本回包
+                GameInstanceSystem.Instance.ResponseFuBenFight(msg);
                 break;
         }
     }

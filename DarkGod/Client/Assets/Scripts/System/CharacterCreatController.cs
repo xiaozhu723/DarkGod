@@ -8,13 +8,11 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
-using static UnityEditor.PlayerSettings;
 
 public class CharacterCreatController : SystemRoot
 {
     public static CharacterCreatController Instance { get; private set; }
-    private MapCfg mainSceneCfg;
+    private MapCfg mapCfg;
     PlayerController playerController;
     Dictionary<int, GameObject> NPCDic = new Dictionary<int, GameObject>();
     List<NpcInfo> npcInfos = new List<NpcInfo>();
@@ -22,23 +20,26 @@ public class CharacterCreatController : SystemRoot
     {
         base.Init();
         Instance = this;
-        mainSceneCfg = resService.GetMapCfg(Constants.MainCitySceneID);
+        mapCfg = resService.GetMapCfg(Constants.MainCitySceneID);
         Debug.Log("Init CharacterCreatController Succeed");
     }
 
     //诞生主角
-    public void CreatPlayer()
+    public void CreatPlayer(MapCfg cfg, string path = PathDefine.AssissnCityPlayerPrefab)
     {
-        GameObject player = resService.LoadPrefab(PathDefine.AssissnCityPlayerPrefab, true);
-        player.transform.position = mainSceneCfg.playerBomPos;
-        player.transform.localEulerAngles = mainSceneCfg.playerBomRote;
-        player.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        if (cfg != null)
+            mapCfg = cfg;
+        GameObject player = resService.LoadPrefab(path, true);
+        player.transform.position = mapCfg.playerBomPos;
+        player.transform.localEulerAngles = mapCfg.playerBomRote;
+        if (mapCfg.ID == 10000)
+            player.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         playerController = player.GetComponent<PlayerController>();
 
-        Camera.main.transform.position = mainSceneCfg.mainCamPos;
-        Camera.main.transform.localEulerAngles = mainSceneCfg.mainCamRote;
-
-        playerController.Init();
+        Camera.main.transform.position = mapCfg.mainCamPos;
+        Camera.main.transform.localEulerAngles = mapCfg.mainCamRote;
+        if (playerController)
+            playerController.Init();
     }
 
     public PlayerController GetPlayer()
@@ -48,17 +49,17 @@ public class CharacterCreatController : SystemRoot
 
     public void CreatMainSceneNpc()
     {
-        var npcInfoArray = mainSceneCfg.monsterLst.Split('|');
-        if(npcInfos.Count!= npcInfoArray.Length)
+        var npcInfoArray = mapCfg.monsterLst.Split('|');
+        if (npcInfos.Count != npcInfoArray.Length)
         {
             npcInfos.Clear();
             for (int i = 0; i < npcInfoArray.Length; i++)
             {
-                var temp = npcInfoArray[i].Replace("\"","").Split(';');
+                var temp = npcInfoArray[i].Replace("\"", "").Split(';');
                 var temp1 = temp[1].Split('，');
                 var temp2 = temp[2].Split('，');
                 var temp3 = temp[3].Split('，');
-              
+
                 NpcInfo npcInfo = new NpcInfo()
                 {
                     ID = int.Parse(temp[0]),
@@ -71,7 +72,7 @@ public class CharacterCreatController : SystemRoot
         }
         for (int i = 0; i < npcInfos.Count; i++)
         {
-            GameObject npc = resService.LoadPrefab(PathDefine.AssissnCityNPCPrefab+ npcInfos[i].ID, true);
+            GameObject npc = resService.LoadPrefab(PathDefine.AssissnCityNPCPrefab + npcInfos[i].ID, true);
             npc.transform.position = npcInfos[i].pos;
             npc.transform.localEulerAngles = npcInfos[i].eulerAngles;
             npc.transform.localScale = npcInfos[i].scale;
@@ -81,8 +82,8 @@ public class CharacterCreatController : SystemRoot
 
     public Vector3 GetNPCPos(int id)
     {
-        Vector3 temp =Vector3.zero ;
-       if (npcInfos.Count - 1 >= id)
+        Vector3 temp = Vector3.zero;
+        if (npcInfos.Count - 1 >= id)
         {
             temp = npcInfos[id].pos;
         }

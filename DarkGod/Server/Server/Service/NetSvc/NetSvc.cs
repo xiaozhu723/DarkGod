@@ -42,7 +42,8 @@ public class NetSvc
     public void Init()
     {
         PESocket<ServerSession, GameMsg> server = new PESocket<ServerSession, GameMsg>();
-        server.StartAsServer(IPCfg.srvIP, IPCfg.srvPort);
+
+        server.StartAsServer("192.168.0.100", IPCfg.srvPort);
         PECommon.Log("NetSvc  Init  Done");
     }
 
@@ -79,7 +80,21 @@ public class NetSvc
             case EMCMD.RequestGuide: //引导
                 GuideSys.Instance.RequestGuide(pack);
                 break;
-                
+            case EMCMD.RequestStrong: //强化
+                StrongSys.Instance.RequestStrong(pack);
+                break;
+            case EMCMD.SendChat: //聊天
+                ChatSys.Instance.RequestChat(pack);
+                break;
+            case EMCMD.RequestBuy: //购买
+                BuySys.Instance.RequestBuy(pack);
+                break;
+            case EMCMD.RequestTaskReceive: //领取任务奖励
+                TaskSys.Instance.RequestTaskReceive(pack);
+                break;
+            case EMCMD.RequestFuBenFight: //进入副本
+                FuBenSys.Instance.RequestFuBenFight(pack);
+                break;
         }
     }
 }

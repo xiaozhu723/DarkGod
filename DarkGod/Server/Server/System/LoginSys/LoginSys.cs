@@ -51,6 +51,31 @@ public class LoginSys
             }
             else
             {
+                int power = pd.Power;
+                int maxPower = PECommon.GetPowerLimit(pd.Level);
+                if(power< maxPower)
+                {
+                    long time = pd.offlineTime;
+                    long nowTime = TimerSvc.Instance.GetNowTime();
+                    int addPower = (int)((nowTime - time)/(1000*60*PECommon.PowerAddSpace)*PECommon.AddPowerNum);
+                    if(addPower>0)
+                    {
+                        power += addPower;
+                        if(power> maxPower)
+                        {
+                            power = maxPower;
+                        }
+                      
+                        if (!cacheSvc.UpdatePlayerData(pd.ID, pd))
+                        {
+                            PECommon.Log("离线体力增加失败！" + pd.ID, LogType.Error);
+                        }
+                        else
+                        {
+                            pd.Power = power;
+                        }
+                    }
+                }
                 sendMsg.resLogin = new ResponseLogin { playerData = pd };
                 cacheSvc.AcctOnline(msg.reqLogin.strAcct, pack.serverSession, pd);
             }
@@ -93,6 +118,15 @@ public class LoginSys
 
     public void ClearOfflineData(ServerSession session)
     {
+        PlayerData playerData = cacheSvc.GetPlayerDataBySession(session);
+        if (playerData != null)
+        {
+            playerData.offlineTime= TimerSvc.Instance.GetNowTime();
+            if (!cacheSvc.UpdatePlayerData(playerData.ID, playerData))
+            {
+                PECommon.Log("离线时间记录失败！" + playerData.ID, LogType.Error);
+            }
+        }
         cacheSvc.AcctOffLine(session);
     }
 }

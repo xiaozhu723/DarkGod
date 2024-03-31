@@ -11,8 +11,9 @@ using UnityEngine;
 
 public class UIItem : MonoBehaviour 
 {
+    [HideInInspector]
     public int nIndex;
-
+    
     public virtual void Show()
     {
         gameObject.SetActive(true);
@@ -21,11 +22,18 @@ public class UIItem : MonoBehaviour
 
     public virtual void SetData(UIItemData data)
     {
-
+        
     }
 }
 
 public class UIItemData
 {
     public int nIndex;
+}
+
+public class ChatItemData : UIItemData
+{
+    public string Name;
+    public string ChatCont;
+    public bool isMy;
 }
