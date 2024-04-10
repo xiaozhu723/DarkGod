@@ -13,6 +13,8 @@ using UnityEngine.Networking;
 public class BattleSystem : SystemRoot
 {
     public PlayerCtrlWindow playerCtrlWindow;
+    public BattleEndWindow battleEndWindow;
+    public double StartTime;
     public static BattleSystem Instance { get; private set; }
     BattleManager battleManager;
     public BattleManager BattleManager
@@ -42,6 +44,30 @@ public class BattleSystem : SystemRoot
         go.transform.SetParent(GameRoot.Instance.transform);
         battleManager = go.AddComponent<BattleManager>();
         battleManager.Init(currSceneID);
+        CharacterCreatController.Instance.ClearMapNpc(Constants.MainCitySceneID);
+    }
+
+    public void EndBattle()
+    {
+        playerCtrlWindow.SetWinState(false);
+        GameRoot.Instance.tipsWindow.RemoveAllItemEntityHp();
+    }
+
+    public void StopAI()
+    {
+        battleManager.StopAI();
+    }
+
+    public void RunAI()
+    {
+        battleManager.RunAI();
+    }
+
+    public void DestroyBattle()
+    {
+        playerCtrlWindow.SetWinState(false);
+        GameRoot.Instance.tipsWindow.RemoveAllItemEntityHp();
+        Destroy(battleManager.gameObject);
     }
 
     public void SetPlayerDir(Vector2 dir)
@@ -54,8 +80,18 @@ public class BattleSystem : SystemRoot
         battleManager.SkillAttack(ID);
     }
 
+    public void RequestNormalAttack()
+    {
+        battleManager.NormalAttack();
+    }
+
     public void ResponseSkillAtt(GameMsg msg)
     {
         
+    }
+
+    public Vector2 GetDirInput()
+    {
+       return  playerCtrlWindow.GetCurrDir();
     }
 }

@@ -12,18 +12,38 @@ public class StateIdle : IState
     {
         entity.currEntityState = EntityState.Idle;
         entity.SetDir(Vector2.zero);
-        PECommon.Log("Enter  StateIdle");
+        entity.CurrSkillEndCBID = -1;
     }
 
     public void Exit(EntityBase entity, params object[] objs)
     {
-        
-        PECommon.Log("Exit  StateIdle");
+        //PECommon.Log("Exit  StateIdle");
     }
 
     public void Process(EntityBase entity, params object[] objs)
     {
-        PECommon.Log("Process  StateIdle");
-        entity.SetBlend(Constants.BlendIdle);
+        if (entity.nextSkilID != 0)
+        {
+            
+            entity.Attack(entity.nextSkilID);
+        }
+        else
+        {
+            if (entity.currEntityType == EntityType.Player)
+            {
+                entity.bCanSkill = true;
+            }
+            if (entity.currDir != Vector2.zero)
+            {
+                entity.Move();
+                entity.SetDir(entity.currDir);
+                entity.currDir = Vector2.zero;
+            }
+            else
+            {
+                entity.SetBlend(Constants.BlendIdle);
+            }
+        }
+        //PECommon.Log("Process  StateIdle");
     }
 }

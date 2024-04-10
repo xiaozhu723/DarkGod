@@ -48,4 +48,9 @@ public class TimerService: SystemRoot
     {
         pETimer.DeleteTimeTask(id);
     }
+
+    public double GetNowTime()
+    {
+        return pETimer.GetMillisecondsTime();
+    }
 }

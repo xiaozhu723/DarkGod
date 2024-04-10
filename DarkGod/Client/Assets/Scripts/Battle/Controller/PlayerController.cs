@@ -14,11 +14,9 @@ using UnityEngine.AI;
 
 public class PlayerController : Controller
 {
-    private Camera mCamera;
     Vector3  carOffset;
     
-    //角色控制器
-    public CharacterController controller;
+   
     //导航寻路组件
     public NavMeshAgent navMeshAgent;
     public Transform fxParent;
@@ -68,6 +66,7 @@ public class PlayerController : Controller
         //    SetBlend(Constants.BlendIdle);
         //    Dir = Vector2.zero;
         //}
+      
 
         if (CurrentBlend != targetBlend)
         {
@@ -109,6 +108,7 @@ public class PlayerController : Controller
 
     void SetDir()
     {
+        //用 要的移动方向  和 当前正前朝向 取得旋转角度（因为有摄像机的照射角度  所有要加上摄像机的旋转）最后得到旋转角度
         float angle = Vector2.SignedAngle(Dir, new Vector2(0, 1)) + mCamera.transform.eulerAngles.y;
         Vector3 eulerAngles = new Vector3(0, angle, 0);
         transform.localEulerAngles = eulerAngles;
@@ -116,7 +116,9 @@ public class PlayerController : Controller
 
     void SetMove()
     {
+        //移动时 用一个方向向量 乘以 一帧的时间 乘以 速度   组成了一帧要移动的距离
         controller.Move(transform.forward * Time.deltaTime * Constants.PlayerSpeed);
+        controller.Move(Vector3.down * Time.deltaTime * Constants.MonsterSpeed);
     }
 
     void SetSkillMove()
@@ -126,6 +128,7 @@ public class PlayerController : Controller
 
     void SetCar()
     {
+        //摄像机的位置 = 玩家的位置 - （玩家最初位置 - 摄像机位置 获取的偏移）  就是说摄像机要一直保持这个偏移量
         mCamera.transform.position = transform.position - carOffset;
     }
 
@@ -136,6 +139,7 @@ public class PlayerController : Controller
 
     void UpdateMixBlend()
     {
+        //两数之差小于一帧要减去的值 就结束平滑过程
         if(Mathf.Abs(CurrentBlend - targetBlend) < Time.deltaTime * Constants.AccelerSpeed)
         {
             CurrentBlend = targetBlend;

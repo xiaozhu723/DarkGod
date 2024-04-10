@@ -14,12 +14,16 @@ public abstract class Controller: MonoBehaviour
     protected TimerService timerService;
     //角色动画控制器
     public Animator animator;
+    public Transform hpRoot;
     //行进方向
     private Vector2 dir = Vector2.zero;
     protected bool isMove = false;
+    //角色控制器
+    public CharacterController controller;
+    protected Camera mCamera;
 
-    public bool isSkillMove = false;
-    public float skillMoveSpeed = 0;
+    protected bool isSkillMove = false;
+    protected float skillMoveSpeed = 0;
     public Vector2 Dir
     {
         get { return dir; }
@@ -63,4 +67,18 @@ public abstract class Controller: MonoBehaviour
         skillMoveSpeed = speed;
     }
 
+    public virtual void SetAtkRotationCam(Vector2 dir)
+    {
+        //用 要的移动方向  和 当前正前朝向 取得旋转角度（因为有摄像机的照射角度  所有要加上摄像机的旋转）最后得到旋转角度
+        float angle = Vector2.SignedAngle(dir, new Vector2(0, 1)) + mCamera.transform.eulerAngles.y;
+        Vector3 eulerAngles = new Vector3(0, angle, 0);
+        transform.localEulerAngles = eulerAngles;
+    }
+
+    public void SetAtkRotationLocal(Vector2 dir)
+    {
+        float angle = Vector2.SignedAngle(dir, new Vector2(0, 1));
+        Vector3 eulerAngles = new Vector3(0, angle, 0);
+        transform.localEulerAngles = eulerAngles;
+    }
 }

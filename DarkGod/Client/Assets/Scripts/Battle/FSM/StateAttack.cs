@@ -10,19 +10,25 @@ public class StateAttack : IState
     public void Enter(EntityBase entity, params object[] objs)
     {
         entity.currEntityState = EntityState.Attack;
-        PECommon.Log("Enter  Attack");
+        entity.curtSkillCfg = ResourceService.Instance.GetSkillData((int)objs[0]);
+        //PECommon.Log("Enter  Attack");
     }
 
     public void Exit(EntityBase entity, params object[] objs)
     {
-        entity.SetAction(Constants.SkillActionDefault);
-        PECommon.Log("Exit  Attack");
+        entity.ExitStateAttack();
+        entity.curtSkillCfg = null;
+        //PECommon.Log("Exit  Attack");
     }
 
     public void Process(EntityBase entity, params object[] objs)
     {
-        //entity.SetAction(1);
-        PECommon.Log("Process  Attack  "+ (int)objs[0]);
-        entity.AttackEffect((int)objs[0]);
+        //PECommon.Log("Process  Attack  "+ (int)objs[0]);
+        //技能攻击
+        if(entity.currEntityType == EntityType.Player)
+        {
+            entity.bCanSkill = false;
+        }
+        entity.SkillAttack((int)objs[0]);
     }
 }

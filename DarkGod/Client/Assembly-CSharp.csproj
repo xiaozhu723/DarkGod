@@ -55,8 +55,10 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\AssetData\GuideData.cs" />
      <Compile Include="Assets\Scripts\Battle\Controller\Controller.cs" />
+     <Compile Include="Assets\Scripts\Battle\Controller\MonsterController.cs" />
      <Compile Include="Assets\Scripts\Battle\Controller\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Battle\Entity\EntityBase.cs" />
+     <Compile Include="Assets\Scripts\Battle\Entity\EntityMonster.cs" />
      <Compile Include="Assets\Scripts\Battle\Entity\EntityPlayer.cs" />
      <Compile Include="Assets\Scripts\Battle\FSM\IState.cs" />
      <Compile Include="Assets\Scripts\Battle\FSM\StateAttack.cs" />
@@ -78,6 +80,7 @@
      <Compile Include="Assets\Scripts\Common\SkillItemBtn.cs" />
      <Compile Include="Assets\Scripts\Common\SystemRoot.cs" />
      <Compile Include="Assets\Scripts\Common\TouchComponent.cs" />
+     <Compile Include="Assets\Scripts\Common\TriggerData.cs" />
      <Compile Include="Assets\Scripts\Common\UIItem.cs" />
      <Compile Include="Assets\Scripts\Common\WindowRoot.cs" />
      <Compile Include="Assets\Scripts\GameRoot.cs" />
@@ -97,6 +100,7 @@
      <Compile Include="Assets\Scripts\Tool\CommonUtility.cs" />
      <Compile Include="Assets\Scripts\Tool\CsvUtils.cs" />
      <Compile Include="Assets\Scripts\Tool\SingleScriptableObject.cs" />
+     <Compile Include="Assets\Scripts\UIWindow\BattleEndWindow.cs" />
      <Compile Include="Assets\Scripts\UIWindow\BuyTipsWindow.cs" />
      <Compile Include="Assets\Scripts\UIWindow\ChatItem.cs" />
      <Compile Include="Assets\Scripts\UIWindow\ChatWindow.cs" />
@@ -105,6 +109,7 @@
      <Compile Include="Assets\Scripts\UIWindow\FuBenBtn.cs" />
      <Compile Include="Assets\Scripts\UIWindow\GameInstanceWindow.cs" />
      <Compile Include="Assets\Scripts\UIWindow\GuideWindow.cs" />
+     <Compile Include="Assets\Scripts\UIWindow\ItemEntityHp.cs" />
      <Compile Include="Assets\Scripts\UIWindow\LodingWindow.cs" />
      <Compile Include="Assets\Scripts\UIWindow\LoginWindow.cs" />
      <Compile Include="Assets\Scripts\UIWindow\MainCityWindow.cs" />

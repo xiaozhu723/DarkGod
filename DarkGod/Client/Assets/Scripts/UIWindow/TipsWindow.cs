@@ -25,6 +25,9 @@ public class TipsWindow : WindowRoot
     public Text m_TipsText;
     private PlayState currPlayState = PlayState.None;
     private Queue<string> tipsQueue = new Queue<string>();
+    public Transform m_HpParent;
+    public Animation playerDodgeAin;
+    private Dictionary<string,ItemEntityHp> ItemEntityHpDic = new Dictionary<string,ItemEntityHp>();
     protected override void InitWindow()
     {
         base.InitWindow();
@@ -83,5 +86,87 @@ public class TipsWindow : WindowRoot
             tipsQueue = new Queue<string>();
         }
         tipsQueue.Enqueue(str);
+    }
+
+
+    public void AddItemEntityHp(string key,Transform parent,int hp)
+    {
+        ItemEntityHp item = null;
+        if(ItemEntityHpDic.TryGetValue(key,out item))
+        {
+            return;
+        }
+        else
+        {
+            GameObject go = resService.LoadPrefab(PathDefine.ItemEntityHp, true);
+            go.transform.parent = m_HpParent;
+            go.transform.localPosition = new Vector3(-1000, 0, 0);
+            item = go.GetComponent<ItemEntityHp>();
+            item.InitEntityHp(parent, hp);
+            ItemEntityHpDic.Add(key, item);
+        }
+    }
+
+    public void SetCritical(string key, int num)
+    {
+        ItemEntityHp item = null;
+        if (ItemEntityHpDic.TryGetValue(key, out item))
+        {
+            item.SetCritical(num);
+        }
+    }
+
+    public void SetDodge(string key)
+    {
+        ItemEntityHp item = null;
+        if (ItemEntityHpDic.TryGetValue(key, out item))
+        {
+            item.SetDodge();
+        }
+    }
+
+    public void SetPlayerDodge()
+    {
+        SetActive(playerDodgeAin.gameObject, true);
+        playerDodgeAin.Stop();
+        playerDodgeAin.Play();
+    }
+
+    public void SetHurt(string key, int num)
+    {
+        ItemEntityHp item = null;
+        if (ItemEntityHpDic.TryGetValue(key, out item))
+        {
+            item.SetHurt(num);
+        }
+    }
+
+    public void SetHPVal(string key, int oldVal, int newVal)
+    {
+
+        ItemEntityHp item = null;
+        if (ItemEntityHpDic.TryGetValue(key, out item))
+        {
+            item.SetHPVal(oldVal, newVal);
+        }
+    }
+
+    public void RemoveItemEntityHp(string key)
+    {
+        ItemEntityHp item = null;
+        if (ItemEntityHpDic.TryGetValue(key, out item))
+        {
+            ItemEntityHpDic.Remove(key);
+            Destroy(item.gameObject);
+        }
+    }
+
+    public void RemoveAllItemEntityHp()
+    {
+        foreach (var item in ItemEntityHpDic)
+        {
+            Destroy(item.Value.gameObject);
+        }
+        ItemEntityHpDic.Clear();
     }
 }

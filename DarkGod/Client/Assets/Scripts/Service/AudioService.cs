@@ -36,6 +36,12 @@ public class AudioService : SystemRoot
         }
     }
 
+    public void StopBGMusic()
+    {
+        if (BgAudio == null) return;
+        BgAudio.Stop();
+    }
+
     public void PlayUIMusic(string audioName)
     {
         if (UIAudio == null) return;
@@ -47,5 +53,12 @@ public class AudioService : SystemRoot
         }
         UIAudio.clip = audioClip;
         UIAudio.Play();
+    }
+
+    public void PlayCharAudio(string name, AudioSource audioSrc)
+    {
+        AudioClip audio = ResourceService.Instance.LoadAutioClip("ResAudio/" + name, true);
+        audioSrc.clip = audio;
+        audioSrc.Play();
     }
 }

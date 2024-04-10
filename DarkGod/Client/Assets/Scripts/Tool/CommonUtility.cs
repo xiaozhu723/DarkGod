@@ -8,7 +8,7 @@
 
 public class CommonUtility
 {
-    public static int RadomInt(int min,int max, System.Random rd)
+    public static int RadomInt(int min, int max, System.Random rd = null)
     {
          if(rd==null) rd = new System.Random();
          int num = rd.Next(min,max+1);

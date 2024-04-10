@@ -28,6 +28,37 @@ public class MapCfg : BaseData<MapCfg>
     public int crystal;
 }
 
+public class MonsterCfg : BaseData<MonsterCfg>
+{
+    public string strMonsterName;
+    public int nType;
+    public bool bIsStop;
+    public string strResPath;
+    public int skillID;
+    public float atkDis;
+    public int hp;
+    public int ad;
+    public int ap;
+    public int addef;
+    public int apdef;
+    public int dodge;
+    public int pierce;
+    public int critical;
+}
+
+public class EntityData : BaseData<EntityData>
+{
+    public int hp;
+    public int ad;
+    public int ap;
+    public int addef;
+    public int apdef;
+    public int dodge;
+    public int pierce;
+    public int critical;
+    public int Level;
+}
+
 //自动任务配置
 public class AutoGuideData : BaseData<AutoGuideData>
 {
@@ -72,7 +103,7 @@ public class SkillData : BaseData<SkillData>
     public bool isCombo;
     public bool isCollide;
     public bool isBreak;
-    public int dmgType;
+    public DamageType dmgType;
     public int[] skillMoveLst;
     public int[] skillActionLst;
     public int[] skillDamageLst;
@@ -84,4 +115,12 @@ public class SkillMove : BaseData<SkillMove>
     public int nDelayTime;
     public int nMoveTime;
     public float moveDis;
+}
+
+//技能伤害点配置
+public class SkillAction : BaseData<SkillAction>
+{
+    public int nDelayTime;
+    public float radius;//伤害半径
+    public float angle;//伤害角度
 }

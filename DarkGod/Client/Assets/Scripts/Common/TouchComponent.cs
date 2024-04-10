@@ -19,6 +19,8 @@ public class TouchComponent : MonoBehaviour
     private float oPDis;
     PEListentr m_PEListentr = null;
     public Action<Vector2> UpdateDir;
+    [HideInInspector]
+    public Vector2 currentDir;
     private void Start()
     {
         oPDis = Screen.height  * 1.0f / Constants.ScreenStandrdHeight  * Constants.ScreenOPDis;
@@ -51,9 +53,10 @@ public class TouchComponent : MonoBehaviour
     {
         m_DirBg.position = defaultPos;
         m_DirPoint.localPosition = Vector2.zero;
+        currentDir = Vector2.zero;
         if (UpdateDir != null)
         {
-            UpdateDir(Vector2.zero);
+            UpdateDir(currentDir);
         }
     }
 
@@ -69,10 +72,10 @@ public class TouchComponent : MonoBehaviour
         {
             m_DirPoint.position = eventData.position;
         }
-        
-        if(UpdateDir!=null)
+        currentDir = dir.normalized;
+        if (UpdateDir!=null)
         {
-            UpdateDir(dir.normalized);
+            UpdateDir(currentDir);
         }
     }
 

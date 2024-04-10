@@ -31,6 +31,8 @@ namespace PEProtocol
         public ResponseTaskReceive rsqTaskReceive;
         public RequestFuBenFight reqFuBenFight;
         public ResponseFuBenFight rsqFuBenFight;
+        public RequestBattleEnd reqBattleEnd;
+        public ResponseBattleEnd rsqBattleEnd;
     }
     #region 登录相关
     [Serializable]
@@ -201,6 +203,28 @@ namespace PEProtocol
         public int nPower;
     }
 
+    [Serializable]
+    public class RequestBattleEnd
+    {
+        public int nID;
+        public bool win;
+        public int hp;
+        public int costTime;
+    }
+    [Serializable]
+    public class ResponseBattleEnd
+    {
+        public int nID;
+        public bool win;
+        public int hp;
+        public int costTime;
+
+        public int nCoin;
+        public int nLevel;
+        public int nExp;
+        public int materials;
+    }
+
     #endregion
     public enum EMCMD
     {
@@ -233,6 +257,9 @@ namespace PEProtocol
 
         RequestFuBenFight = 117,
         ResponseFuBenFight = 118,
+
+        RequestBattleEnd = 119,
+        ResponseBattleEnd = 120,
     }
 
     public enum ErrorCode

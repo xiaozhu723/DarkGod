@@ -33,6 +33,8 @@ public class ResourceService : MonoBehaviour
         InitTaskCfg();
         InitSkillCfg();
         InitSkillMoveCfg();
+        InitSkillActionCfg();
+        InitMonsterCfg();
         Debug.Log("Init ResourceService....");
     }
 
@@ -222,6 +224,7 @@ public class ResourceService : MonoBehaviour
         return name;
     }
     Dictionary<int, MapCfg> mapCfgDic = new Dictionary<int, MapCfg>();
+    Dictionary<int, MonsterCfg> monsterCfgDic = new Dictionary<int, MonsterCfg>();
     public void InitMapCfg()
     {
         CommonUtility.StartCountTime();
@@ -260,7 +263,43 @@ public class ResourceService : MonoBehaviour
         }
         CommonUtility.StopCountTime("MapCfg.Csv读取速度");
     }
+    public void InitMonsterCfg()
+    {
+        CommonUtility.StartCountTime();
+        monsterCfgDic.Clear();
+        //List<List<string>> temp = ParseRowAll("map");
+        var arr = CSVHelper.ReadCSVFile(CSVConfig.csvFolderPath, "monster");
+        string[,] temp = CSVHelper.AnalysisCsvData(arr);
+        int row = temp.GetLength(0);
+        int col = temp.GetLength(1);
+        for (int i = 0; i < row; i++)
+        {
+            if (!int.TryParse(temp[i, 0], out int id))
+            {
+                continue;
+            }
 
+            MonsterCfg cfg = new MonsterCfg();
+            cfg.ID = id;
+            cfg.strMonsterName = temp[i, 1];
+            cfg.nType = int.Parse(temp[i, 2]);
+            cfg.bIsStop = int.Parse(temp[i, 3])==1;
+            cfg.strResPath = temp[i, 4];
+            cfg.skillID = int.Parse(temp[i, 5]);
+            cfg.atkDis = float.Parse(temp[i, 6]);
+            cfg.hp = int.Parse(temp[i, 7]);
+            cfg.ad = int.Parse(temp[i, 8]);
+            cfg.ap = int.Parse(temp[i, 9]);
+            cfg.addef = int.Parse(temp[i, 10]);
+            cfg.apdef = int.Parse(temp[i, 11]);
+            cfg.dodge = int.Parse(temp[i, 12]);
+            cfg.pierce = int.Parse(temp[i, 13]);
+            cfg.critical = int.Parse(temp[i, 14]);
+            monsterCfgDic.Add(id, cfg);
+        }
+        CommonUtility.StopCountTime("monsterCfg.Csv读取速度");
+
+    }
     public MapCfg GetMapCfg(int id)
     {
         MapCfg cfg = null;
@@ -270,7 +309,15 @@ public class ResourceService : MonoBehaviour
         }
         return cfg;
     }
-
+    public MonsterCfg GetMonsterCfg(int id)
+    {
+        MonsterCfg cfg = null;
+        if (monsterCfgDic.TryGetValue(id, out cfg))
+        {
+            return cfg;
+        }
+        return cfg;
+    }
     private Vector3 StrToVector3(string str)
     {
         Vector3 vector = Vector3.zero;
@@ -281,6 +328,8 @@ public class ResourceService : MonoBehaviour
         }
         return vector;
     }
+
+
 
     //引导配置
     Dictionary<int, AutoGuideData> autoGuideDataDic = new Dictionary<int, AutoGuideData>();
@@ -495,6 +544,7 @@ public class ResourceService : MonoBehaviour
     //技能配置
     List<SkillData> SkillDataList = new List<SkillData>();
     List<SkillMove> SkillMoveDataList = new List<SkillMove>();
+    List<SkillAction> SkillActionDataList = new List<SkillAction>();
     public void InitSkillCfg()
     {
         CommonUtility.StartCountTime();
@@ -522,7 +572,7 @@ public class ResourceService : MonoBehaviour
             cfg.isCombo = int.Parse(temp[i,6])==1;
             cfg.isCollide = int.Parse(temp[i, 7]) == 1;
             cfg.isBreak = int.Parse(temp[i, 8]) == 1;
-            cfg.dmgType = int.Parse(temp[i, 9]);
+            cfg.dmgType = (DamageType)int.Parse(temp[i, 9]);
             cfg.skillMoveLst = StrToArray(temp[i, 10]);
             cfg.skillActionLst = StrToArray(temp[i, 11]);
             cfg.skillDamageLst = StrToArray(temp[i, 12]); 
@@ -553,7 +603,32 @@ public class ResourceService : MonoBehaviour
             cfg.moveDis = float.Parse(temp[i, 3]);
             SkillMoveDataList.Add(cfg);
         }
-        CommonUtility.StopCountTime("skill.Csv读取速度");
+        CommonUtility.StopCountTime("skillmove.Csv读取速度");
+    }
+    public void InitSkillActionCfg()
+    {
+        CommonUtility.StartCountTime();
+        SkillActionDataList.Clear();
+
+        var arr = CSVHelper.ReadCSVFile(CSVConfig.csvFolderPath, "skillaction");
+        string[,] temp = CSVHelper.AnalysisCsvData(arr);
+        int row = temp.GetLength(0);
+        int col = temp.GetLength(1);
+        for (int i = 0; i < row; i++)
+        {
+            if (!int.TryParse(temp[i, 0], out int id))
+            {
+                continue;
+            }
+
+            SkillAction cfg = new SkillAction();
+            cfg.ID = id;
+            cfg.nDelayTime = int.Parse(temp[i, 1]);
+            cfg.radius = float.Parse(temp[i, 2]);
+            cfg.angle = float.Parse(temp[i, 3]);
+            SkillActionDataList.Add(cfg);
+        }
+        CommonUtility.StopCountTime("skillaction.Csv读取速度");
     }
     public int[] StrToArray(string str)
     {
@@ -599,6 +674,18 @@ public class ResourceService : MonoBehaviour
             if (SkillMoveDataList[i].ID == id)
             {
                 return SkillMoveDataList[i];
+            }
+        }
+        return null;
+    }
+
+    public SkillAction GetSkillActionData(int id)
+    {
+        for (int i = 0; i < SkillActionDataList.Count; i++)
+        {
+            if (SkillActionDataList[i].ID == id)
+            {
+                return SkillActionDataList[i];
             }
         }
         return null;

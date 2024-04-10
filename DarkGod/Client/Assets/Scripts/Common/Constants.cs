@@ -28,6 +28,7 @@ public class Constants
     public const string UIExtenBtn = "uiExtenBtn";
     public const string UIOpenPage = "uiOpenPage";
     public const string Fbitem = "fbitem";
+    public const string AssassinHit = "assassin_Hit";
 
     //原始屏幕
     public const int ScreenStandrdHeight = 750;
@@ -42,9 +43,16 @@ public class Constants
 
     //动画平滑加速度
     public const float AccelerSpeed = 5;
+    public const float HPAccelerSpeed = 0.3F;
 
     //SkilAnction触发参数
     public const int SkillActionDefault = -1;
+    public const int SkillActionBorn = 0;
+    public const int SkillActionDie = 100;
+    public const int SkillActionHit = 101;
+
+
+    public const int DieAinLength = 2000;
 
     //动画混合参数
     public const int BlendIdle = 0;
@@ -52,4 +60,34 @@ public class Constants
 
     //聊天最大储存值
     public const int ChatMaxCount = 100;
+
+    //普攻连招有效间隔
+    public static int ComboSpace = 500;
+}
+
+public enum DamageType
+{
+    None,
+    ADDamage,
+    APDamage,
+}
+
+public enum AttackType
+{
+    None,
+    Attack,
+    SkillAttack,
+}
+
+public enum EntityType
+{
+    None,
+    Player,
+    Monster,
+}
+
+public enum EntitySkillState
+{
+    None,
+    BatiState,
 }

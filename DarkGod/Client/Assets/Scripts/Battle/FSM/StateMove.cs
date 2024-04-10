@@ -10,18 +10,18 @@ public class StateMove : IState
     public void Enter(EntityBase entity, params object[] objs)
     {
         entity.currEntityState = EntityState.Move;
-        PECommon.Log("Enter  StateMove");
+        //PECommon.Log("Enter  StateMove");
     }
 
     public void Exit(EntityBase entity, params object[] objs)
     {
         
-        PECommon.Log("Exit  StateMove");
+        //PECommon.Log("Exit  StateMove");
     }
 
     public void Process(EntityBase entity, params object[] objs)
     {
-        PECommon.Log("Process  StateMove");
+        //PECommon.Log("Process  StateMove");
         entity.SetBlend(Constants.BlendWalk);
     }
 }

@@ -95,6 +95,9 @@ public class NetSvc
             case EMCMD.RequestFuBenFight: //进入副本
                 FuBenSys.Instance.RequestFuBenFight(pack);
                 break;
+            case EMCMD.RequestBattleEnd: //副本结算
+                FuBenSys.Instance.RequestBattleEnd(pack);
+                break;
         }
     }
 }

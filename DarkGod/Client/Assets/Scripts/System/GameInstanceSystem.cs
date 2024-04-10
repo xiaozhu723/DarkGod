@@ -7,6 +7,7 @@
 *****************************************************/
 using PEProtocol;
 using System;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -19,6 +20,7 @@ public class GameInstanceSystem : SystemRoot
     PlayerController playerController;
     PlayerData playerData;
     int currSceneID;
+
     public override void Init()
     {
         base.Init();
@@ -29,10 +31,9 @@ public class GameInstanceSystem : SystemRoot
 
     public void OpenGameInstance()
     {
-        
         gameInstanceWindow.SetWinState();
     }
- 
+
 
 
     public void RequestFuBenFight(int ID)
@@ -70,5 +71,32 @@ public class GameInstanceSystem : SystemRoot
         gameInstanceWindow.SetWinState(false);
     }
 
-    
+    public void RequestBattleEnd(bool win, int hp, int costTime)
+    {
+        GameMsg gameMsg = new GameMsg
+        {
+            cmd = (int)EMCMD.RequestBattleEnd,
+            reqBattleEnd = new RequestBattleEnd
+            {
+                nID = currSceneID,
+                win = win,
+                hp = hp,
+                costTime = costTime,
+            }
+        };
+        netServer.SendMessage(gameMsg);
+    }
+
+    public void ResponseBattleEnd(GameMsg msg)
+    {
+        GameRoot.Instance.PlayerData.missionNum = msg.rsqBattleEnd.nID;
+        GameRoot.Instance.PlayerData.Level = msg.rsqBattleEnd.nLevel;
+        GameRoot.Instance.PlayerData.Coin = msg.rsqBattleEnd.nCoin;
+        GameRoot.Instance.PlayerData.Exp = msg.rsqBattleEnd.nExp;
+        GameRoot.Instance.PlayerData.materials = msg.rsqBattleEnd.materials;
+
+        BattleSystem.Instance.battleEndWindow.SetBattleEndType(BattleEndType.Exit);
+        BattleSystem.Instance.battleEndWindow.SetWinState(true);
+        BattleSystem.Instance.battleEndWindow.SetBattleEndExitData(currSceneID, msg.rsqBattleEnd.hp, msg.rsqBattleEnd.costTime);
+    }
 }

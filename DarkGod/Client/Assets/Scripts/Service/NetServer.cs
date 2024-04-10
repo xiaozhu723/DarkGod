@@ -164,6 +164,9 @@ public class NetServer : MonoBehaviour
             case EMCMD.ResponseFuBenFight: //进入副本回包
                 GameInstanceSystem.Instance.ResponseFuBenFight(msg);
                 break;
+            case EMCMD.ResponseBattleEnd: //副本结算回包
+                GameInstanceSystem.Instance.ResponseBattleEnd(msg);
+                break;
         }
     }
 }

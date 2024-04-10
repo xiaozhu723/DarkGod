@@ -18,4 +18,6 @@ public class PathDefine
 
 
     public const string PlayerAssassinImage = "ResImage/assassin";
+
+    public const string ItemEntityHp = "PrefabUI/ItemEntityHp";
 }

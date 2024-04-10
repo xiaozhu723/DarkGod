@@ -7,6 +7,7 @@
 *****************************************************/
 
 using PEProtocol;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,7 +22,9 @@ public class PlayerCtrlWindow : WindowRoot
     public Image m_HPImage;//血量
     public GridLayoutGroup m_Grid;
     public Transform m_SkillBtnParent;
-
+    public Button m_ExitBtn;
+    int maxHP;
+    int currHP;
     protected override void InitWindow()
     {
         base.InitWindow();
@@ -31,12 +34,51 @@ public class PlayerCtrlWindow : WindowRoot
     private void Start()
     {
         touch.UpdateDir = UpdatePlayerDir;
+        for (int i = 0; i < m_SkillBtnParent.childCount; i++)
+        {
+            SkillItemBtn item = m_SkillBtnParent.GetChild(i).GetComponent<SkillItemBtn>();
+            if(item == null) continue;
+            SkillData skillData = resService.GetSkillData(item.CurrSkillID);
+            if (skillData == null) continue;
+            item.Init(skillData.nCDTime);
+        }
+        m_ExitBtn.onClick.AddListener(OnClickExitBtn);
     }
 
+    private void OnClickExitBtn()
+    {
+        //battleSystem.battleEndWindow.SetBattleEndType(BattleEndType.Pause);
+        //battleSystem.battleEndWindow.SetWinState(true);
+        battleSystem.BattleManager.EndBattle(true, 1000);
+    }
+
+    private void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            BattleSystem.Instance.RequestNormalAttack();
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            m_SkillBtnParent.GetChild(1).GetComponent<SkillItemBtn>().OnClickSkillBtn();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            m_SkillBtnParent.GetChild(2).GetComponent<SkillItemBtn>().OnClickSkillBtn();
+        }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            m_SkillBtnParent.GetChild(3).GetComponent<SkillItemBtn>().OnClickSkillBtn();
+        }
+    }
     public void RefreshUI()
     {
         playerData = GameRoot.Instance.PlayerData;
         if (playerData == null) return;
+        currHP = maxHP = playerData.hp;
         SetText(m_LevelText, playerData.Level);
         SetText(m_PlayerName, playerData.Name);
         SetExpImageSize();
@@ -46,9 +88,19 @@ public class PlayerCtrlWindow : WindowRoot
 
     public void SetHP()
     {
-        int maxExp = PECommon.GetHPLimit(playerData.Level);
-        SetText(m_HP, playerData.hp + "/"+ maxExp);
-        m_HPImage.fillAmount = playerData.hp * 1.0F / maxExp;
+        SetText(m_HP, playerData.hp + "/" + maxHP);
+        m_HPImage.fillAmount = playerData.hp * 1.0F / maxHP;
+    }
+
+    public void UpdateHP(int newHp)
+    {
+        currHP = newHp;
+        if(currHP < 0)
+        {
+            currHP = 0;
+        }
+        SetText(m_HP, currHP + "/" + maxHP);
+        m_HPImage.fillAmount = currHP * 1.0F / maxHP;
     }
 
     //设置经验条缩放
@@ -90,4 +142,9 @@ public class PlayerCtrlWindow : WindowRoot
     {
         battleSystem.SetPlayerDir(dir);
     }
+    public Vector2 GetCurrDir()
+    {
+        return touch.currentDir;
+    }
+
 }

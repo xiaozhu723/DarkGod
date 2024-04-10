@@ -6,6 +6,7 @@
 	功能：副本管理类
 *****************************************************/
 using PEProtocol;
+using System.Collections.Generic;
 
 public class FuBenSys
 {
@@ -58,6 +59,54 @@ public class FuBenSys
             else
             {
                 sendMsg.err = (int)ErrorCode.PowerShort;
+            }
+        }
+        else
+        {
+            sendMsg.err = (int)ErrorCode.ServerDataError;
+        }
+
+        pack.serverSession.SendMsg(sendMsg);
+    }
+
+    public void RequestBattleEnd(GameMsgPack pack)
+    {
+        GameMsg sendMsg = new GameMsg
+        {
+            cmd = (int)EMCMD.ResponseBattleEnd,
+        };
+        sendMsg.rsqBattleEnd = new ResponseBattleEnd();
+        PlayerData playerData = cacheSvc.GetPlayerDataBySession(pack.serverSession);
+        MapCfg mapCfg = CfgSvc.Instance.GetMapCfg(pack.msg.reqBattleEnd.nID);
+
+      
+        if (mapCfg != null )
+        {
+            MapCfg nextMapCfg = CfgSvc.Instance.GetMapCfg(pack.msg.reqBattleEnd.nID);
+            if (playerData.missionNum == pack.msg.reqBattleEnd.nID && nextMapCfg!=null)
+            {
+                playerData.missionNum += 1;
+            }
+            playerData.Coin += mapCfg.coin;
+            playerData.materials += mapCfg.crystal;
+            List<int> list = PECommon.GetExpUpLevelNum(playerData.Level, playerData.Exp + mapCfg.exp);
+            playerData.Level = playerData.Level + list[0];
+            playerData.Exp = list[1];
+            if (!cacheSvc.UpdatePlayerData(playerData.ID, playerData))
+            {
+                sendMsg.err = (int)ErrorCode.UpdateDBError;
+            }
+            else
+            {
+                sendMsg.rsqBattleEnd.nID = playerData.missionNum;
+                sendMsg.rsqBattleEnd.win = pack.msg.reqBattleEnd.win;
+                sendMsg.rsqBattleEnd.hp = pack.msg.reqBattleEnd.hp;
+                sendMsg.rsqBattleEnd.costTime = pack.msg.reqBattleEnd.costTime;
+                sendMsg.rsqBattleEnd.nCoin = playerData.Coin;
+                sendMsg.rsqBattleEnd.nLevel = playerData.Level;
+                sendMsg.rsqBattleEnd.nExp = playerData.Exp;
+                sendMsg.rsqBattleEnd.materials = playerData.materials;
+                TaskSys.Instance.UpdatePlayerTask(pack.serverSession, 2);
             }
         }
         else

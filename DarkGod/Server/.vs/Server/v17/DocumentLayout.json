@@ -3,32 +3,12 @@
   "WorkspaceRootPath": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\server\\db\\dbmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|solutionrelative:server\\db\\dbmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F718D9AD-A186-4BF3-A915-F11F53830612}|PEProtocol\\PEProtocol.csproj|d:\\uunityproject\\darkgodroot\\darkgod\\server\\peprotocol\\pecommon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F718D9AD-A186-4BF3-A915-F11F53830612}|PEProtocol\\PEProtocol.csproj|solutionrelative:peprotocol\\pecommon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\server\\system\\fubensys.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|solutionrelative:server\\system\\fubensys.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\server\\service\\netsvc\\netsvc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|solutionrelative:server\\service\\netsvc\\netsvc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F718D9AD-A186-4BF3-A915-F11F53830612}|PEProtocol\\PEProtocol.csproj|D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\peprotocol\\gamemsg.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F718D9AD-A186-4BF3-A915-F11F53830612}|PEProtocol\\PEProtocol.csproj|solutionrelative:peprotocol\\gamemsg.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\server\\service\\cfgsvc\\cfgsvc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|solutionrelative:server\\service\\cfgsvc\\cfgsvc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\server\\common\\serverroot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|solutionrelative:server\\common\\serverroot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|d:\\uunityproject\\darkgodroot\\darkgod\\server\\server\\system\\fubensys.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|solutionrelative:server\\system\\fubensys.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\server\\system\\tasksys.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -39,12 +19,32 @@
       "RelativeMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|solutionrelative:server\\system\\buysys.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\server\\system\\chatsys.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|solutionrelative:server\\system\\chatsys.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\server\\system\\guidesys.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|solutionrelative:server\\system\\guidesys.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\server\\system\\chatsys.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|solutionrelative:server\\system\\chatsys.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F718D9AD-A186-4BF3-A915-F11F53830612}|PEProtocol\\PEProtocol.csproj|D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\peprotocol\\gamemsg.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F718D9AD-A186-4BF3-A915-F11F53830612}|PEProtocol\\PEProtocol.csproj|solutionrelative:peprotocol\\gamemsg.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\server\\db\\dbmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|solutionrelative:server\\db\\dbmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F718D9AD-A186-4BF3-A915-F11F53830612}|PEProtocol\\PEProtocol.csproj|D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\peprotocol\\pecommon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F718D9AD-A186-4BF3-A915-F11F53830612}|PEProtocol\\PEProtocol.csproj|solutionrelative:peprotocol\\pecommon.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\server\\service\\cfgsvc\\cfgsvc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|solutionrelative:server\\service\\cfgsvc\\cfgsvc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\server\\common\\serverroot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|solutionrelative:server\\common\\serverroot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E6E63F83-2116-4B85-89D3-BE592B4BBBCF}|Server\\Server.csproj|D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\server\\system\\powersys.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -85,53 +85,20 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "FuBenSys.cs",
               "DocumentMoniker": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\System\\FuBenSys.cs",
               "RelativeDocumentMoniker": "Server\\System\\FuBenSys.cs",
               "ToolTip": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\System\\FuBenSys.cs",
               "RelativeToolTip": "Server\\System\\FuBenSys.cs",
-              "ViewState": "AQIAABkAAAAAAAAAAAAMwDcAAAARAAAA",
+              "ViewState": "AQIAAB0AAAAAAAAAAAAcwG0AAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-27T05:56:19.149Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "TaskSys.cs",
-              "DocumentMoniker": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\System\\TaskSys.cs",
-              "RelativeDocumentMoniker": "Server\\System\\TaskSys.cs",
-              "ToolTip": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\System\\TaskSys.cs",
-              "RelativeToolTip": "Server\\System\\TaskSys.cs",
-              "ViewState": "AQIAAE0AAAAAAAAAAAAywB0AAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-25T03:28:28.77Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "BuySys.cs",
-              "DocumentMoniker": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\System\\BuySys.cs",
-              "RelativeDocumentMoniker": "Server\\System\\BuySys.cs",
-              "ToolTip": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\System\\BuySys.cs",
-              "RelativeToolTip": "Server\\System\\BuySys.cs",
-              "ViewState": "AQIAADMAAAAAAAAAAAAowFgAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-24T07:26:38Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "ResSvc.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\AppData\\Local\\Temp\\Rar$DIa6920.36121\\ResSvc.cs",
-              "ToolTip": "C:\\Users\\Admin\\AppData\\Local\\Temp\\Rar$DIa6920.36121\\ResSvc.cs",
-              "ViewState": "AQIAAFgBAAAAAAAAAAAAAF0BAAASAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-22T10:12:59.772Z"
+              "WhenOpened": "2024-03-27T05:56:19.149Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -147,7 +114,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 9,
               "Title": "CfgSvc.cs",
               "DocumentMoniker": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\Service\\CfgSvc\\CfgSvc.cs",
               "RelativeDocumentMoniker": "Server\\Service\\CfgSvc\\CfgSvc.cs",
@@ -159,19 +126,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 5,
               "Title": "GuideSys.cs",
               "DocumentMoniker": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\System\\GuideSys.cs",
               "RelativeDocumentMoniker": "Server\\System\\GuideSys.cs",
               "ToolTip": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\System\\GuideSys.cs",
               "RelativeToolTip": "Server\\System\\GuideSys.cs",
-              "ViewState": "AQIAABYAAAAAAAAAAAAywDUAAAApAAAA",
+              "ViewState": "AQIAACQAAAAAAAAAAAAmwDwAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-21T10:46:07.25Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 7,
               "Title": "DBManager.cs",
               "DocumentMoniker": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\DB\\DBManager.cs",
               "RelativeDocumentMoniker": "Server\\DB\\DBManager.cs",
@@ -179,8 +146,7 @@
               "RelativeToolTip": "Server\\DB\\DBManager.cs",
               "ViewState": "AQIAAAgAAAAAAAAAAAApwB0AAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-15T06:22:25.992Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-15T06:22:25.992Z"
             },
             {
               "$type": "Document",
@@ -196,7 +162,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 8,
               "Title": "PECommon.cs",
               "DocumentMoniker": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\PEProtocol\\PECommon.cs",
               "RelativeDocumentMoniker": "PEProtocol\\PECommon.cs",
@@ -204,8 +170,7 @@
               "RelativeToolTip": "PEProtocol\\PECommon.cs",
               "ViewState": "AQIAAAsAAAAAAAAAAAAuwCIAAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T07:35:15.323Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-14T07:35:15.323Z"
             },
             {
               "$type": "Document",
@@ -221,13 +186,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "GameMsg.cs",
               "DocumentMoniker": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\PEProtocol\\GameMsg.cs",
               "RelativeDocumentMoniker": "PEProtocol\\GameMsg.cs",
               "ToolTip": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\PEProtocol\\GameMsg.cs",
               "RelativeToolTip": "PEProtocol\\GameMsg.cs",
-              "ViewState": "AQIAAAgAAAAAAAAAAAAMwCAAAAAvAAAA",
+              "ViewState": "AQIAAMMAAAAAAAAAAAASwOAAAAAdAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-14T06:22:08.121Z"
             },
@@ -245,15 +210,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "NetSvc.cs",
               "DocumentMoniker": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\Service\\NetSvc\\NetSvc.cs",
               "RelativeDocumentMoniker": "Server\\Service\\NetSvc\\NetSvc.cs",
               "ToolTip": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\Service\\NetSvc\\NetSvc.cs",
               "RelativeToolTip": "Server\\Service\\NetSvc\\NetSvc.cs",
-              "ViewState": "AQIAABEAAAAAAAAAAAAiwC0AAAAZAAAA",
+              "ViewState": "AQIAABAAAAAAAAAAAAA/wGIAAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T05:37:03.261Z"
+              "WhenOpened": "2024-03-14T05:37:03.261Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -269,7 +235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "ServerRoot.cs",
               "DocumentMoniker": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\Common\\ServerRoot.cs",
               "RelativeDocumentMoniker": "Server\\Common\\ServerRoot.cs",
@@ -281,15 +247,49 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 4,
               "Title": "ChatSys.cs",
               "DocumentMoniker": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\System\\ChatSys.cs",
               "RelativeDocumentMoniker": "Server\\System\\ChatSys.cs",
               "ToolTip": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\System\\ChatSys.cs",
               "RelativeToolTip": "Server\\System\\ChatSys.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAAywC0AAAApAAAA",
+              "ViewState": "AQIAABAAAAAAAAAAAAAywC0AAABBAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-23T12:25:02.24Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TaskSys.cs",
+              "DocumentMoniker": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\System\\TaskSys.cs",
+              "RelativeDocumentMoniker": "Server\\System\\TaskSys.cs",
+              "ToolTip": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\System\\TaskSys.cs",
+              "RelativeToolTip": "Server\\System\\TaskSys.cs",
+              "ViewState": "AQIAACcAAAAAAAAAAAAxwB8AAAA7AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-25T03:28:28.77Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "BuySys.cs",
+              "DocumentMoniker": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\System\\BuySys.cs",
+              "RelativeDocumentMoniker": "Server\\System\\BuySys.cs",
+              "ToolTip": "D:\\UunityProject\\DarkGodRoot\\DarkGod\\Server\\Server\\System\\BuySys.cs",
+              "RelativeToolTip": "Server\\System\\BuySys.cs",
+              "ViewState": "AQIAADgAAAAAAAAAAIAzwE8AAAAlAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-24T07:26:38Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ResSvc.cs",
+              "DocumentMoniker": "C:\\Users\\Admin\\AppData\\Local\\Temp\\Rar$DIa6920.36121\\ResSvc.cs",
+              "ToolTip": "C:\\Users\\Admin\\AppData\\Local\\Temp\\Rar$DIa6920.36121\\ResSvc.cs",
+              "ViewState": "AQIAAFgBAAAAAAAAAAAAAF0BAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-22T10:12:59.772Z"
             },
             {
               "$type": "Document",

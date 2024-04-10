@@ -10,7 +10,7 @@ using System;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillItemBtn : MonoBehaviour 
+public class SkillItemBtn : MonoBehaviour
 {
     public int CurrSkillID;
     public Image m_SkillIcon;
@@ -20,47 +20,70 @@ public class SkillItemBtn : MonoBehaviour
     public Button m_SkillBtn;
     private float CDTime;
     private float NowCDTime;
+    private float currCDTime;
+    public AttackType m_CurrAttackType;
     int taskID;
     bool isCD;
     private void Start()
     {
-        m_SkillBtn.onClick.AddListener(OnClickSkillBtn);
+        if (m_CurrAttackType == AttackType.Attack)
+        {
+            m_SkillBtn.onClick.AddListener(OnClickNormalAttackBtn);
+        }
+        else
+        {
+            m_SkillBtn.onClick.AddListener(OnClickSkillBtn);
+        }
+       
     }
 
-    public void Init()
+    public void Init(float time)
     {
         //根据数据加载技能icon
         //设置当前CD时间 技能是否解锁
+        CDTime = time;
     }
 
-    public void SetCD(float time)
+    private void Update()
+    {
+        if(isCD)
+        {
+            float delta = Time.deltaTime;
+            NowCDTime -= delta;
+            if (NowCDTime <= 0)
+            {
+                isCD = false;
+                m_ImgCD.gameObject.SetActive(false);
+                m_ImgCD.fillAmount = 0;
+                NowCDTime = 0;
+            }
+            else
+            {
+                int result = (int)Math.Ceiling(NowCDTime);
+                m_CDText.text = result.ToString(); ;
+                m_ImgCD.fillAmount = NowCDTime / currCDTime;
+            }
+        }
+    }
+
+    public void SetCD()
     {
         isCD = true;
-        m_CDText.text = CDTime.ToString();
-        CDTime = NowCDTime = time;
+        currCDTime = NowCDTime = CDTime / 1000;
+        m_CDText.text = currCDTime.ToString();
         m_ImgCD.gameObject.SetActive(true);
         m_ImgCD.fillAmount = 1;
-        taskID = TimerService.Instance.AddTimerTask(UpdateCD, 1, PETimeUnit.Second, 0);
     }
 
-    public void UpdateCD(int time)
+    public void OnClickSkillBtn()
     {
-        NowCDTime -= 1;
-        if(NowCDTime <= 0)
-        {
-            NowCDTime = 0;
-            m_ImgCD.fillAmount = 0;
-            m_ImgCD.gameObject.SetActive(false);
-            TimerService.Instance.DeleteTimeTask(taskID);
-            isCD = false;
-            return;
-        }
-        m_ImgCD.fillAmount = NowCDTime / CDTime;
-    }
-
-    private void OnClickSkillBtn()
-    {
-        if (isCD) return;
+        if (isCD|| !BattleSystem.Instance.BattleManager.GetCanSkill()) return;
+        SetCD();
         BattleSystem.Instance.RequestSkillAtt(CurrSkillID);
+    }
+
+    private void OnClickNormalAttackBtn()
+    {
+        BattleSystem.Instance.RequestNormalAttack();
     }
 }

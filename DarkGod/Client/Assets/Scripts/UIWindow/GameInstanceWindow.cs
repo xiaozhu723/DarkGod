@@ -49,12 +49,11 @@ public class GameInstanceWindow : WindowRoot
         int missionNum = playerData.missionNum%1000;
         for (int i = 0; i < IconBtnList.Count; i++)
         {
-            if(i== missionNum-1)
+            if(i<= missionNum-1)
             {
                 SetActive(IconBtnList[i]);
                 m_Pointer.parent = IconBtnList[i].transform;
                 m_Pointer.localPosition = Vector3.zero;
-                break;
             }
         }
     }

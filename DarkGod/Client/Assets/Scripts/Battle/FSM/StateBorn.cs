@@ -19,6 +19,7 @@ public class StateBorn : IState
 
     public void Process(EntityBase entity, params object[] objs)
     {
+        entity.SetBoreAction();
 
     }
 }

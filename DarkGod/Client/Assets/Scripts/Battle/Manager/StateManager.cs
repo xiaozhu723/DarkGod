@@ -25,6 +25,7 @@ public class StateManager : MonoBehaviour
     //切换状态
     public void ChangeStatus(EntityBase entity, EntityState targetState, params object[] objs)
     {
+        if (entity.currEntityState == EntityState.Die) return;
         if (targetState == entity.currEntityState) return;
         if (FSMDic.TryGetValue(entity.currEntityState, out IState state))
         {

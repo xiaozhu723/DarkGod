@@ -43,10 +43,11 @@ public class MainCitySystem : SystemRoot
         mainSceneCfg = resService.GetMapCfg(Constants.MainCitySceneID);
         resService.AsyncLoadScene(mainSceneCfg.sceneName, () =>
         {
+            GameRoot.Instance.gameObject.GetComponent<AudioListener>().enabled = false;
             //诞生主角
             characterCreatController.CreatPlayer(mainSceneCfg);
             playerController = characterCreatController.GetPlayer();
-            characterCreatController.CreatMainSceneNpc();
+            characterCreatController.CreatMainSceneNpc(mainSceneCfg);
             //更换背景音乐
             audioService.PlayBGMusic(Constants.BGMainCity, true);
             //打开主界面
@@ -136,7 +137,7 @@ public class MainCitySystem : SystemRoot
             currentTaskData = tGuideData;
         if (currentTaskData.npcID != -1)//-1是引导窗口 大于-1是npcID
         {
-            Vector3 endNavPos = characterCreatController.GetNPCNavPos(currentTaskData.npcID);
+            Vector3 endNavPos = characterCreatController.GetNPCNavPos(mainSceneCfg.ID,currentTaskData.npcID);
             float dis = Vector3.Distance(transform.position, endNavPos);
             if (dis < 0.5f)
             {
